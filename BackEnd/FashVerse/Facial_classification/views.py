@@ -81,6 +81,9 @@ class FaceShapeViewset(viewsets.ViewSet):
       # cv2.imshow(data['face'])
       if serializer.is_valid():
          serializer.save()
+         from .FILEPATH import MEDIA_URL
+         # image_path = MEDIA_URL+recieved_image_name
+         # print(image_path)
          image_path = 'media/FaceShape/'+recieved_image_name
          # print(image_path)
          # image = cv2.imread(image_path,0)
