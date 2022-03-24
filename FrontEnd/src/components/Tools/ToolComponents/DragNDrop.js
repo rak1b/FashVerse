@@ -27,8 +27,10 @@ export default function DragNDrop({SetFilesForOrginal}) {
       minHeight="195px"
       onClean={handleClean}
       value={files}
-      maxFiles={1}
+      maxFiles={2}
       header={false}
+      behaviour='replace'
+      multiple={false}
       // footer={false}
       maxFileSize={2998000}
       // label="Drag'n drop files here or click to browse"

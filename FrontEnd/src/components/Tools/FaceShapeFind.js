@@ -5,10 +5,13 @@ import face_cart from "../../images/female.jpg"
 import axios from "axios";
 import RandomString from "../RandomString/RandomString";
 import URL from "../../BaseUrl/Url";
+import Spinner from './../Mini/Spinner';
 
 const FaceShapeFind = () => {
     const [file, setFiles] = useState([]);
-    const [errorOrsuccess,SeterrorOrsuccess]=useState('green');
+    const [Spin, setSpin] = useState(0);
+
+    const [errorOrsuccess, SeterrorOrsuccess] = useState('green');
     const [Result, setResult] = useState({ Shape: "Heart", Heart: 46.36, Oval: 0.87, Oblong: 31.99, Round: 10.04, Square: 10.74 });
     console.log(Result);
     const [showUploadPlace, SetshowUploadPlace] = useState(0)
@@ -24,13 +27,22 @@ const FaceShapeFind = () => {
 
 
         axios.post(url, formData).then((response) => {
+
+
+
             console.log(response.data);
-            if (response.data.Shape.length>10){
+            setTimeout(() => {
+                setSpin(0)
+
+
+            }, 1000);
+
+            if (response.data.Shape.length > 10) {
                 SeterrorOrsuccess('red')
-            }else{
+            } else {
                 SeterrorOrsuccess('green')
 
-                
+
             }
             setResult({
                 Shape: response.data.Shape,
@@ -70,36 +82,46 @@ const FaceShapeFind = () => {
                             <div class="relative lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0" style={{ "cursor": "auto" }}>
                                 <h2 class="text-sm title-font text-gray-500 tracking-widest" style={{ "cursor": "auto" }}>Your Face Shape is</h2>
 
-                                <div class={`bg-gray-50 rounded-lg py-5 px-6 mb-3 text-4xl text-${errorOrsuccess}-500 inline-flex items-center w-full` }role="alert">
+
+
+                                {!Spin && (<><div class={`bg-gray-50 rounded-lg py-5 px-6 mb-3 text-4xl text-${errorOrsuccess}-500 inline-flex items-center w-full`} role="alert">
                                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-circle-right" className="w-10 h-10 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                                         <path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zm113.9 231L234.4 103.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L285.1 256 183.5 357.6c-9.4 9.4-9.4 24.6 0 33.9l17 17c9.4 9.4 24.6 9.4 33.9 0L369.9 273c9.4-9.4 9.4-24.6 0-34z"></path>
                                     </svg>
                                     {Result.Shape}
                                 </div>
-                                
-                                    
-                                <h2 class="text-sm title-font text-gray-500 tracking-widest mb-4" style={{ "cursor": "auto" }}>
-                                    Other Possibilities:
-                                </h2>
 
-                                {
+
+                                    <h2 class="text-sm title-font text-gray-500 tracking-widest mb-4" style={{ "cursor": "auto" }}>
+                                        Other Possibilities:
+                                    </h2>
+                                </>)
+                                }
+
+
+                                {!Spin && (
                                     Object.keys(Result).map((current) => {
                                         console.log(current);
                                         console.log(Object.keys(Result)[0]);
                                         console.log(Result.Shape);
                                         return (
+
                                             <>
 
 
-                                                {(current === "Shape" || current === Result.Shape || Result.Shape.length>10) ? "" :
+                                                {(current === "Shape" || current === Result.Shape || Result.Shape.length > 10) ? "" :
                                                     <Percentage Shape={current} Percent={`${Result[current]}`} />}
                                             </>
                                         )
 
 
-                                    })
+                                    }))
                                 }
-                                
+
+                                {
+                                    Spin ? <Spinner /> : ''
+                                }
+
 
 
                                 {/* <Percentage Shape="Heart" Percent='5' />
@@ -122,6 +144,7 @@ const FaceShapeFind = () => {
                                         : <>
                                             <button onClick={() => {
                                                 UploadImage()
+                                                setSpin(1)
 
                                             }}
 
