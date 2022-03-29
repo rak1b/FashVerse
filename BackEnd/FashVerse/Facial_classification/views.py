@@ -12,6 +12,15 @@ from .FaceShape import classify_image_django
 #    queryset = FaceShapeFind.objects.all()
 #    serializer_class = FindShapeSerializer
 
+def get_ip_address(request):
+    """ use requestobject to fetch client machine's IP Address """
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')    ### Real IP address of client Machine
+    return ip   
+
 
 
 def detect_face_shape(image_path):
@@ -73,7 +82,8 @@ class FaceShapeViewset(viewsets.ViewSet):
     def create(self, request):
       data=request.data
       print(data)
-      
+      ip_address = get_ip_address(request)
+      print(ip_address)
       serializer = FindShapeSerializer(data=data)
       recieved_image_name = str(data['face'])
       print(str(data['face']))
