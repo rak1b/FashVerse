@@ -1,53 +1,108 @@
-absl-py==1.0.0
-asgiref==3.4.1
-attrs==21.4.0
-autopep8==1.6.0
-backcall==0.2.0
-colorama==0.4.4
-cycler==0.11.0
-dataclasses==0.8
-decorator==5.1.1
-Django==3.2.8
-django-cors-headers==3.10.0
-django-filter==21.1
-djangorestframework==3.12.4
-entrypoints==0.4
-ipykernel==5.5.6
-ipython==7.16.3
-ipython-genutils==0.2.0
-jedi==0.17.2
-joblib==1.1.0
+absl-py
+asgiref
+attrs
+autopep8
+backcall
+colorama
+cycler
+dataclasses
+decorator
+Django
+django-cors-headers
+django-filter
+djangorestframework
+entrypoints
+ipykernel
+ipython
+ipython-genutils
+jedi
+joblib
 jupyter-client==7.1.2
 jupyter-core==4.9.2
-keyboard==0.13.5
-kiwisolver==1.3.1
-matplotlib==3.3.4
-mediapipe==0.8.3
-nest-asyncio==1.5.4
-numpy==1.19.3
-opencv-python==4.5.5.64
-parso==0.7.1
-pickleshare==0.7.5
-Pillow==8.4.0
-prompt-toolkit==3.0.28
-protobuf==3.19.4
-pycodestyle==2.8.0
-Pygments==2.11.2
-pyparsing==3.0.7
-python-dateutil==2.8.2
-python-dotenv==0.19.1
-pytz==2021.3
-PyWavelets==1.1.1
-pywin32==303
-pyzmq==22.3.0
-scikit-learn==0.24.2
-scipy==1.5.4
-six==1.16.0
-sklearn==0.0
-sqlparse==0.4.2
-threadpoolctl==3.1.0
-toml==0.10.2
-tornado==6.1
-traitlets==4.3.3
-typing-extensions==3.10.0.2
-wcwidth==0.2.5
+keyboard
+kiwisolver
+matplotlib
+mediapipe
+nest-asyncio
+numpy
+opencv-python
+parso
+pickleshare
+Pillow
+prompt-toolkit
+protobuf
+pycodestyle
+Pygments
+pyparsing
+python-dateutil
+python-dotenv
+pytz
+PyWavelets
+pywin32
+pyzmq
+scikit-learn
+scipy
+six
+sklearn
+sqlparse
+threadpoolctl
+toml
+tornado
+traitlets
+typing-extensions
+wcwidth
+
+
+# absl-py==1.0.0
+# asgiref==3.4.1
+# attrs==21.4.0
+# autopep8==1.6.0
+# backcall==0.2.0
+# colorama==0.4.4
+# cycler==0.11.0
+# dataclasses==0.8
+# decorator==5.1.1
+# Django==3.2.8
+# django-cors-headers==3.10.0
+# django-filter==21.1
+# djangorestframework==3.12.4
+# entrypoints==0.4
+# ipykernel==5.5.6
+# ipython==7.16.3
+# ipython-genutils==0.2.0
+# jedi==0.17.2
+# joblib==1.1.0
+# jupyter-client==7.1.2
+# jupyter-core==4.9.2
+# keyboard==0.13.5
+# kiwisolver==1.3.1
+# matplotlib==3.3.4
+# mediapipe==0.8.3
+# nest-asyncio==1.5.4
+# numpy==1.19.3
+# opencv-python==4.5.5.64
+# parso==0.7.1
+# pickleshare==0.7.5
+# Pillow==8.4.0
+# prompt-toolkit==3.0.28
+# protobuf==3.19.4
+# pycodestyle==2.8.0
+# Pygments==2.11.2
+# pyparsing==3.0.7
+# python-dateutil==2.8.2
+# python-dotenv==0.19.1
+# pytz==2021.3
+# PyWavelets==1.1.1
+# pywin32==303
+# pyzmq==22.3.0
+# scikit-learn==0.24.2
+# scipy==1.5.4
+# six==1.16.0
+# sklearn==0.0
+# sqlparse==0.4.2
+# threadpoolctl==3.1.0
+# toml==0.10.2
+# tornado==6.1
+# traitlets==4.3.3
+# typing-extensions==3.10.0.2
+# wcwidth==0.2.5

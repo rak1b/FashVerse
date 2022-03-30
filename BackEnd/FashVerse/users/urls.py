@@ -1,14 +1,13 @@
-from django.db.models import base
 from django.urls import path,include
-# from .views import homeView,HomeViewSet,UserViewSet
-from rest_framework import routers
+from users.views import ProfileViewSet,UserViewSet,GetUserInfo
+from rest_framework.routers import DefaultRouter
+from users.views import PostViewSet
+router = DefaultRouter()
+router.register(r'users', UserViewSet, basename='user')
+router.register(r'userinfo', GetUserInfo, basename='userInfo')
+router.register(r'Profile', ProfileViewSet, basename='Profile')
 
-# router = routers.DefaultRouter()
-  
-# router.register(r'users', UserViewSet,basename='users')
-  
-# urlpatterns = [
-#     path('api/', include(router.urls)),
-#     # path('', include('rest_framework.urls'))
-# ]
 
+urlpatterns = [
+    path('api/', include(router.urls)),
+]

@@ -2,6 +2,7 @@
 from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import User
 from rest_framework.authtoken.views import Token
+
 from .models import Profile,Post
 # class HomeSerializer(ModelSerializer):
 #     class Meta:
@@ -17,9 +18,12 @@ class UserSerializer(ModelSerializer):
     def create(self, validated_data):
         
         user = User.objects.create_user(**validated_data)
-        Token.objects.create(user=user)
+        if user:
+            Profile.objects.create(user=user)
+        print(Token.objects.create(user=user))
         return user
-    
+      
+
 class PostSerializer(ModelSerializer):
     class Meta:
         model = Post

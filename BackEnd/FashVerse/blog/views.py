@@ -11,56 +11,7 @@ from .models import News,NewsImage, Tools
 from rest_framework.authtoken.models import Token
 
 
-class UserViewSet(viewsets.ViewSet):
-    """
-    A simple ViewSet for listing or retrieving users.
-    """
-    def list(self, request):
-        queryset = User.objects.all()
-        serializer = UserSerializer(queryset, many=True)
-        return Response(serializer.data)
 
-    def retrieve(self, request, pk=None):
-        queryset = User.objects.all()
-        user = get_object_or_404(queryset, pk=pk)
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-    
-    def create(self, request):
-        serializer = UserSerializer(data=request.data)
-        print(request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'data':'Created'},status=status.HTTP_201_CREATED)
-        return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
-
-class GetUserInfo(viewsets.ViewSet):
-    """
-    A simple ViewSet for getting logged in user info.
-    """
-    # def list(self, request):
-    #     # queryset = Token.objects.get(key=pk)
-        
-    #     queryset = Token.objects.all()
-    #     serializer = UserInfoSerializer(queryset, many=True)
-    #     return Response(serializer.data)
-    
-    def retrieve(self, request,pk=None):
-        try:
-            queryset = Token.objects.get(key=pk)
-            return Response({
-            'username':queryset.user.username,
-            'email':queryset.user.email,
-             
-        })
-        except Exception as e:
-            return Response('Invalid Token')
-            
-            
-        # serializer = UserInfoSerializer(queryset, many=True)
-        # return Response(serializer.data.user.username)
-       
-    
 class NewsViewSet(viewsets.ViewSet):
     """
     A simple ViewSet for listing or retrieving users.

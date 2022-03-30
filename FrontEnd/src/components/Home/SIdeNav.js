@@ -11,16 +11,16 @@ const Links = ({ styles, location, name }) => {
 };
 
 
-const NavLinks = ({LinkInfo}) => {
+const SideNav = ({LinkInfo}) => {
   const [token, settoken] = useCookies();
 
-  const LinkStyles = "shadow-lg flex_1 text-center  hover:bg-pyBlue-500 rounded p-5";
+  const LinkStyles = "shadow-lg flex_1 text-center bg-pyBlue-400 my-5 w-40 m-auto     hover:bg-pyBlue-500 rounded p-5";
  
 
 
   return (
-    <div className="  transition-all  flexfont-mono rounded shadow-lg  bg-pyBlue-400 w-3/4 mx-auto text-white mb-5">
-      <div className="flex flex-wrap mx-auto w-full">
+    <div className="  transition-all  flexfont-mono rounded shadow-lg h-screen bg-gray-50 w-full mx-auto text-white mb-5">
+      <div className="flex flex-col flex-wrap mx-auto   w-full ">
         {LinkInfo.map((current) => {
           // if (token["token"]) {
           //   if (current.name === "SignUp" || current.name === "Login") {
@@ -39,6 +39,6 @@ const NavLinks = ({LinkInfo}) => {
   );
 };
 
-export {Links,NavLinks};
+export {Links,SideNav};
 
  

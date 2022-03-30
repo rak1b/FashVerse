@@ -60,8 +60,12 @@ const Hero = () => {
 
       <div className="HeroContainer  flex flex-wrap  mx-auto w-3/4 h-screen">
         <div className="lg:mt-32   w-full lg:w-1/2 mt-10">
-          <h2 className="font-bold text-white text-5xl lg:text-6xl  capitalize  ">Where the world Show their talents. </h2>
-          <p className="font-semibold lg:text-xl text-sm mt-5 lg:mt-7 text-gray-300">A free platform for beginners to Showcase their projects and tools and get their dream job.</p>
+          {/* <h2 className="font-bold text-white text-5xl lg:text-6xl  capitalize  ">Where the world Show their talents. </h2> */}
+          <p className="font-semibold lg:text-3xl mb-4 space-x-5 text-sm mt-5 lg:mt-7 text-gray-300">A free platform for your complete </p>
+
+          <h2 className="font-bold text-white text-5xl lg:text-6xl  capitalize  ">fashion and fitness solution..</h2>
+          {/* <p className="font-semibold lg:text-xl text-sm mt-5 lg:mt-7 text-gray-300">A free platform for your complete </p> */}
+          {/* <p className="font-semibold lg:text-xl text-sm mt-5 lg:mt-7 text-gray-300">A free platform for beginners to Showcase their projects and tools and get their dream job.</p> */}
         </div>
 
         <div className="lg:w-1/2 w-full">

@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Female from "../../images/female.jpg";
+import profile from "../../images/profile.jpg";
 import Logo from "../../images/Logo.png";
 import NavSearch from "./NavSearch";
 import { Menu } from "react-feather";
-import NavLinks from "./NavLinks";
-import { useDispatch, useSelector } from 'react-redux';
-import ApiClient from './../../API/ApiClient';
-import { useCookies } from 'react-cookie';
+import {Links,NavLinks} from "./NavLinks";
+import { useDispatch, useSelector } from "react-redux";
+import ApiClient from "./../../API/ApiClient";
+import { useCookies } from "react-cookie";
 import { ShowDp } from "../../ReduxFiles/Actions/ProfileActions";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import ProfileModal from "../Profile/Profile";
+import { LinkInfo_Logged_in, LinkInfo_Logged_out } from "./LInkInfo";
+
 const Navbar = () => {
   const [ShowNav, setShowNav] = useState(1);
   const { REACT_APP_API_URL } = process.env;
+  const [Loaded, setLoaded] = useState(0);
+  const [ProfileMod, setProfileMod] = useState(0);
   const [token, settoken] = useCookies();
-  const [Loaded, setLoaded] = useState(0)
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     if (token["token"]) {
       ApiClient()
@@ -25,21 +29,17 @@ const Navbar = () => {
           console.log(response.data);
           dispatch(ShowDp(response.data));
           setLoaded(1);
-        
-          
         })
         .catch(function (error) {
           console.log(error);
         });
-    }else{
+    } else {
       setLoaded(0);
-
     }
   }, [token["token"]]);
 
+  const ProfileState = useSelector((state) => state.PROFILE);
 
-  const ProfileState = useSelector(state => state.PROFILE);
-  
   const ShowNavLink = () => {
     setShowNav(!ShowNav);
   };
@@ -48,61 +48,103 @@ const Navbar = () => {
       setShowNav(0);
       console.log(window.innerWidth);
     }
-   
   };
   // On refresh it will check the window size and will hide if less than 768
   useEffect(() => {
     HideNav();
-   
   }, []);
 
- 
   const location = useLocation();
-const [Bounce, setBounce] = useState('')
+  const [Bounce, setBounce] = useState("");
   useEffect(() => {
-    console.log('Location changed');
-    if(window.location.pathname==='/tools'){
+    console.log("Location changed");
+    if (window.location.pathname === "/tools" || window.location.pathname === "/"  ) {
       setShowNav(0);
-      
-    }  
-    setBounce('animate-bounce')
+    }
+    setBounce("animate-bounce");
     setTimeout(() => {
-      setBounce('')
-    },5000)
+      setBounce("");
+    }, 5000);
   }, [location]);
-
-  
 
   return (
     <>
       <div className="bg-pyBlue-500 lg:pb-2 lg:pt-2 md:pb-10 sm:pb-12">
         <div className="flex transition-all justify-between lg:relative font-mono  items-center bg-pyBlue-500 text-gray-200 h-20 md:w-3/4 lg:w-3/4 w-3/4   mx-auto">
-          <button onClick={ShowNavLink} className={`lg:absolute lg:left-44 cursor-pointer rounded-full p-2 hover:bg-pyBlue-400 ${Bounce} `}>
-          {/* <button onClick={ShowNavLink} className="lg:hidden md:hidden cursor-pointer rounded-full p-2 hover:bg-pyBlue-400 "> */}
+          <button
+            onClick={ShowNavLink}
+            className={`lg:absolute lg:left-44 cursor-pointer rounded-full p-2 hover:bg-pyBlue-400 ${Bounce} `}
+          >
+            {/* <button onClick={ShowNavLink} className="lg:hidden md:hidden cursor-pointer rounded-full p-2 hover:bg-pyBlue-400 "> */}
             <Menu color="#FFDD56" size={35} />
           </button>
 
           {/* Logo */}
           <div className="">
-            <img src={Logo} className="  ml-4 lg:w-40 lg:h-18 w-36 h-15" alt="PyTools" />
+            <a href="/">
+              <img
+                src={Logo}
+                className="  ml-4 lg:w-40 lg:h-18 w-36 h-15"
+                alt="FashVerse"
+              />
+            </a>
           </div>
           {/* Search section */}
-          <div className="flex  ">
-            <NavSearch hidden="hidden" />
-            {/* User Icon */}
-            <div className="relative">
-              <span className="w-3 h-3 block absolute right-0 bg-green-300 shadow-lg rounded-full"></span>
-              {Loaded?<img className="w-12 h-12 rounded-full ml-2 lg:ml-4" src={`${REACT_APP_API_URL}${ProfileState.data.Dp}`} alt="" />:<img className="w-12 h-12 rounded-full ml-2 lg:ml-4" src={Female} alt="" />}
-              
+          {token["token"] ? (
+            <>
+              <div className="flex  ">
+                <NavSearch hidden="hidden" />
+                {/* User Icon */}
+                <div
+                  className="relative cursor-pointer"
+                  onClick={() => {
+                    setProfileMod(1);
+                    console.log(ProfileMod);
+                    console.log("show profile");
+                  }}
+                >
+                  <span className="w-3 h-3 block absolute right-0 bg-green-300 shadow-lg rounded-full"></span>
+                  {Loaded ? (
+                    <img
+                      className="w-12 h-12 rounded-full ml-2 lg:ml-4"
+                      src={`${REACT_APP_API_URL}${ProfileState.data.Dp}`}
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      className="w-12 h-12 rounded-full ml-2 lg:ml-4"
+                      src={profile}
+                      alt=""
+                    />
+                  )}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex lg:w-60 sm:20 justify-around ">
+              <Links  styles="shadow-lg bg-green-500 text-center font-bold text-lg   hover:bg-pyBlue-400  rounded-lg p-5 w-1/2 mx-2 " location='/login' name='Login' />
+              <Links styles="shadow-lg bg-gray-300 text-black text-center font-bold text-lg  hover:bg-pyBlue-400 hover:text-white rounded-lg p-5 w-1/2" location='/signup' name='Sign Up' />
+
             </div>
-          </div>
+          )}
         </div>
         {/* For Small devices */}
         <div className="w-3/4 m-auto md:hidden lg:hidden">
           <NavSearch hidden="block" />
         </div>
-        {ShowNav ? <NavLinks /> : ""}
+        {token["token"] ? (
+          ShowNav ? (
+            <NavLinks LinkInfo={LinkInfo_Logged_in} />
+          ) : (
+            ""
+          )
+        ) : (
+          ""
+        )}
+
+        {/* (ShowNav ? <NavLinks LinkInfo = {LinkInfo_Logged_out} /> : "")} */}
       </div>
+      {ProfileMod ? <ProfileModal hideProfileModal={setProfileMod} details={ProfileState}/> : ""}
     </>
   );
 };

@@ -5,6 +5,7 @@ import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { NewsActions } from '../../ReduxFiles/Actions/NewsActions';
 import { useSelector } from 'react-redux';
+import ProfileModal from './../Profile/Profile';
 
 const News = () => {
     const [token, settoken] = useCookies();
@@ -31,7 +32,7 @@ const News = () => {
 
     return (
         <div className="bg-gray-50">
-            <h2 className='text-5xl  text-center text-pyBlue-500 font-bold mb-10'>Latest Pytools News</h2>
+            <h2 className='text-5xl  text-center  font-bold mb-10 text-gray-400'>News You Might Want To Hear From Us</h2>
 
             {NewsState.map((news) => {
                 return (

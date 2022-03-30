@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CurrentUser } from '../../ReduxFiles/Actions/CurrentUserAction';
 import axios from 'axios';
 const { REACT_APP_API_URL } = process.env;
-const Community = () => {
+const CreatePost = () => {
     const [Content, setContent] = useState('');
     const [Post, setPost] = useState([]);
     const [token, settoken] = useCookies();
@@ -31,11 +31,8 @@ const Community = () => {
             ApiClient()
                 .get(`/api/Profile/${token["token"]}/`)
                 .then((response) => {
-                    // dispatch(heroActions(response.data.username));
-                    // console.log(response.data);
                     console.log(response.data.data.user);
                     dispatch(CurrentUser(response.data.data.user));
-                    // setLoaded(1);
 
 
                 })
@@ -120,8 +117,8 @@ const Community = () => {
 
 
     return (
-        <div className=' rounded-lg w-4/5 mx-auto'>
-            <h2 className='my-2 font-bold text-pyBlue-400'>Need help?</h2>
+        <div className=' rounded-lg full mx-auto'>
+            <h2 className='my-2 font-bold text-pyBlue-400'>Share Your Thought..</h2>
 
             <div className="shadow-2xl rounded-lg w-full mx-auto mt-5 p-5">
                 {/* <textarea className=" rounded-lg p-5 w-full" name="" id="" cols="30" rows="2" placeholder="Share Your Problem.."></textarea> */}
@@ -134,7 +131,7 @@ const Community = () => {
 
             </div>
 
-            <div className=" rounded-lg w-full mx-auto mt-5">
+            {/* <div className=" rounded-lg w-full mx-auto mt-5">
                 <h2 className='mt-10 font-bold text-pyBlue-400'>See recent Posts : </h2>
             </div>
 
@@ -153,7 +150,7 @@ const Community = () => {
                     </div>
                     </a>
                 )
-            })}
+            })} */}
           
             
             <ToastContainer
@@ -174,5 +171,5 @@ const Community = () => {
     )
 }
 
-export default Community
+export default CreatePost
 

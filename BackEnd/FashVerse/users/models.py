@@ -1,8 +1,5 @@
 from email.policy import default
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
@@ -11,7 +8,7 @@ class Profile(models.Model):
         User,
         on_delete=models.CASCADE,
     )
-    Dp = models.ImageField(upload_to="Profile/Dp",default='media/Default/profile.jpg',blank=True)
+    Dp = models.ImageField(upload_to="Profile/Dp",default="Profile/Dp/profile.jpg",blank=True)
     Cp = models.ImageField(upload_to="Profile/Cp",blank=True)
     
     def __str__(self):

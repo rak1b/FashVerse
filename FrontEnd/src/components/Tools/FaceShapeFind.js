@@ -166,7 +166,7 @@ const FaceShapeFind = () => {
                         </div>
                     </div>
                 </div>
-
+{/* <Spinner/> */}
 
 
             </section>
