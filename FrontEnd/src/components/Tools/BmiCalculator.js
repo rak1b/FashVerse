@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import Breadcrumb from './ToolComponents/Breadcrumb';
 
 export default function BmiCalculator() {
     const [height, setHeight] = useState("");
@@ -46,6 +47,8 @@ export default function BmiCalculator() {
     }
 
     return (
+        <>
+        <Breadcrumb/>
         <section className="container w-3/4 h-screen bg-gray-100 mx-auto">
             <h2 className=' mx-auto text-6xl text-center bg-green-500 p-5 rounded-b-2xl text-white ' style={{ fontFamily: `"Cormorant Garamond"` }}> BMI Calculator</h2>
 
@@ -109,5 +112,6 @@ export default function BmiCalculator() {
                 )}
             </form>
         </section>
+        </>
     );
 }

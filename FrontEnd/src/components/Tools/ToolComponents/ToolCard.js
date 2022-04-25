@@ -10,7 +10,7 @@ const ToolCard = ({ props }) => {
   const name = props.name.replace(' ','-')
 
   return (
-    <>  <Link to={`${props.id}/${name}`} >
+    <>  <Link to={`${name}`} >
           <div className="card-container cursor-pointer" key={props.id}>
             <div className="card ">
               <div className="card-body">

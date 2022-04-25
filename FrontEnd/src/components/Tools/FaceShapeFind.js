@@ -6,6 +6,7 @@ import axios from "axios";
 import RandomString from "../RandomString/RandomString";
 import URL from "../../BaseUrl/Url";
 import Spinner from './../Mini/Spinner';
+import Breadcrumb from './ToolComponents/Breadcrumb';
 
 const FaceShapeFind = () => {
     const [file, setFiles] = useState([]);
@@ -70,6 +71,8 @@ const FaceShapeFind = () => {
 
     return (
         <>
+        <Breadcrumb/>
+
             <section className="container w-3/4 h-screen bg-gray-100 mx-auto">
                 <h2 className=' mx-auto text-6xl text-center bg-green-500 p-5 rounded-b-2xl text-white ' style={{ fontFamily: `"Cormorant Garamond"` }}>Face Shape App</h2>
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { LinkInfo_Logged_in } from '../NavBar/LInkInfo'
 import { NavLinks } from '../NavBar/NavLinks'
+import TextEditor from '../TextEditor'
 import CreatePost from './CreatePost'
 import { SideNav } from './SIdeNav'
 
@@ -56,7 +57,8 @@ export const HomePage = () => {
     </div>
      */}
 
-    <CreatePost/>
+    {/* <CreatePost/> */}
+    <TextEditor/>
 
     <div className="mt-3 flex flex-col">
       

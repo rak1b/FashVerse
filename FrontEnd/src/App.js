@@ -25,7 +25,7 @@ function App() {
         <Route exact path="/login" element={<Login/>}/>
         <Route exact path="/logout"element={<Logout/>} />
         <Route exact path="/tools/" element={<Tools/>} />
-        <Route exact path="/tools/:id/:name" element={<ToolSingle/>} />
+        <Route exact path="/tools/:name" element={<ToolSingle/>} />
         <Route exact path="/news" element={<News/>} />
         {/* <Route exact path="/" element={<Hero/>} /> */}
         <Route exact path="/" element={token['token']?<HomePage/>:<Hero/>} />
