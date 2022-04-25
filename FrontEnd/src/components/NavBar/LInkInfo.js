@@ -11,8 +11,8 @@ const LinkInfo_Logged_in = [
       location: "/tools",
     },
     {
-      name: "News",
-      location: "/news",
+      name: "Blog",
+      location: "/blog",
     },
     {
       name: "Community",
