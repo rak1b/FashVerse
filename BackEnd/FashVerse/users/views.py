@@ -125,8 +125,11 @@ class PostViewSet(viewsets.ViewSet):
         return Response(serializer.data)
     
     def create(self, request):
-        serializer = PostSerializer(data=request.data)
-        print(request.data)
+        serializer = PostSerializer(data={'user':request.data['user'],
+                                          'content':f'''{request.data['content']}'''
+                                          })
+        
+        print(f'''{request.data['content']}''')
         if serializer.is_valid():
             serializer.save()
             return Response({'data':'Created'},status=status.HTTP_201_CREATED)

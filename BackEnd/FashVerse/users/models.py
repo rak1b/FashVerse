@@ -21,7 +21,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
     
-    content = models.CharField(max_length=50)
+    content = models.CharField(max_length=2500)
     
     
     def __str__(self):

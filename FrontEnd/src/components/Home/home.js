@@ -5,6 +5,7 @@ import { NavLinks } from '../NavBar/NavLinks'
 import TextEditor from '../TextEditor'
 import CreatePost from './CreatePost'
 import { SideNav } from './SIdeNav'
+import ShowFeed from './ShowFeed';
 
 export const HomePage = () => {
   return (
@@ -59,7 +60,8 @@ export const HomePage = () => {
 
     {/* <CreatePost/> */}
     <TextEditor/>
-
+     <ShowFeed/>
+  
     <div className="mt-3 flex flex-col">
       
       
