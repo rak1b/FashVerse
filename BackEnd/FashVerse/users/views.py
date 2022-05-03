@@ -1,8 +1,8 @@
 
 
-from .serializers import ProfileSerializer,PostSerializer,UserSerializer
+from .serializers import PostImageSerializer, ProfileSerializer,PostSerializer,UserSerializer
 from rest_framework import viewsets
-from .models import Post, Profile
+from .models import Post, PostImage, Profile
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
@@ -114,7 +114,7 @@ class PostViewSet(viewsets.ViewSet):
     A simple ViewSet for listing or retrieving users.
     """
     def list(self, request):
-        queryset = Post.objects.all()
+        queryset = Post.objects.order_by('-created')
         serializer = PostSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -134,3 +134,62 @@ class PostViewSet(viewsets.ViewSet):
             serializer.save()
             return Response({'data':'Created'},status=status.HTTP_201_CREATED)
         return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
+class PostImageViewset(viewsets.ViewSet):
+    """
+    A simple ViewSet for post's image.
+    """
+    def list(self, request):
+        queryset = PostImage.objects.all()
+        serializer = PostImageSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+   #  def retrieve(self, request, pk=None):
+   #      queryset = User.objects.all()
+   #      user = get_object_or_404(queryset, pk=pk)
+   #      serializer = UserSerializer(user)
+   #      return Response(serializer.data)
+    
+    # def create(self, request):
+    #    data=request.data
+    #    print(data)
+      
+    #    serializer = PostImageSerializer(data=data)
+    #    recieved_image_name = str(data['image'])
+    #    str_image_name = str(data['image'])
+      
+    #   # cv2.imshow(data['face'])
+    #    if serializer.is_valid():
+    #         serializer.save()
+    #             # return Response(serializer.data,status=status.HTTP_201_CREATED)
+    #         res = {
+    #                 'data':'created',
+    #                 'url':f"/PostImages/{str_image_name}"
+    #             }
+                
+    #         return Response(res,status=status.HTTP_201_CREATED)
+    #    else:
+    #             print("Invalid serializers \n")
+    #             print(serializer.errors)
+    #             return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+                
+            
+            
+    def create(self, request):
+        
+      serializer = PostImageSerializer(data=request.data)
+      data=request.data
+      recieved_image_name = str(data['image'])
+      print(str(data['image']))
+      # cv2.imshow(data['face'])
+      if serializer.is_valid():
+         serializer.save()
+         image_path = 'media/PostImages/'+recieved_image_name
+         print(image_path)
+         # image = cv2.imread(image_path,0)
+         print({'url':image_path,"data":"created"})
+         return Response({'url':image_path,"status":'created'},status=status.HTTP_201_CREATED)
+      return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+        # Response { type: "cors", url: "https://noteyard-backend.herokuapp.com/api/blogs/uploadImg", redirected: false, status: 200, ok: true, statusText: "OK", headers: Headers, body: ReadableStream, bodyUsed: false }

@@ -8,6 +8,8 @@ import ApiClient from "./../API/ApiClient";
 import { useCookies } from "react-cookie";
 import { toast, ToastContainer } from "react-toastify";
 import { axios } from "axios";
+import RandomString from './RandomString/RandomString';
+// https://dev.to/thomz/uploading-images-to-django-rest-framework-from-forms-in-react-3jhj
 // https://noteyard.piyushdev.xyz/blogpost/62347038802b0390bc078843
 // https://www.youtube.com/watch?v=cevL8_Rsmuc&ab_channel=DEV_PIE
 // https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/frameworks/react.html
@@ -16,8 +18,13 @@ const TextEditor = () => {
   const [Content, setContent] = useState("Share Your Thought...");
   const [token, settoken] = useCookies();
   const [CurrentUser, SetCurrentUser] = useState("");
-  const API_URl = "https://noteyard-backend.herokuapp.com";
-  const UPLOAD_ENDPOINT = "api/blogs/uploadImg";
+  const { REACT_APP_API_URL } = process.env;
+
+  const API_URl = REACT_APP_API_URL;
+  const UPLOAD_ENDPOINT = "api/postImage/";
+
+  // const API_URl = "https://noteyard-backend.herokuapp.com";
+  // const UPLOAD_ENDPOINT = "api/blogs/uploadImg";
 
   if (token["token"]) {
     ApiClient()
@@ -54,25 +61,48 @@ const TextEditor = () => {
       });
   };
 
-  
+ 
   function uploadAdapter(loader) {
     return {
       upload: () => {
         return new Promise((resolve, reject) => {
           const body = new FormData();
           loader.file.then((file) => {
-            body.append("uploadImg", file);
-            fetch(`${API_URl}/${UPLOAD_ENDPOINT}`, {
-              method: "post",
-              body: body,
+            const newFileName = RandomString(10) + file.name.split(' ').join('_');
+            body.append("image",  file, newFileName);
+          
+            ApiClient()
+            .post(`${API_URl}/${UPLOAD_ENDPOINT}`, body)
+            .then((response) => {
+              console.log(response.data);
+              // toast.success(`Post Created Successfully`);
+                resolve({ default: `${API_URl}/${response.data.url}` });
+
             })
-              .then((res) => res.json())
-              .then((res) => {
-                resolve({ default: `${API_URl}/${res.url}` });
-              })
-              .catch((err) => {
-                reject(err);
-              });
+            .catch(function (error) {
+              console.log(error);
+              // toast.error(`Error occured,please try again!`);
+            });
+
+
+            // fetch(`${API_URl}/${UPLOAD_ENDPOINT}`, {
+            //   method: "post",
+            //   body: body,
+            // })
+              // .then((res) => {
+              //   console.log("printing res")
+              //   console.log(res.url);
+              //   console.log(res);
+              //   resolve({ default: `${API_URl}/${res.url}` });
+
+              //   console.log(res.json());
+              // })
+              // .then((res) => {
+              //   resolve({ default: `${API_URl}/${res.url}` });
+              // })
+              // .catch((err) => {
+              //   reject(err);
+              // });
           });
         });
       },
@@ -81,16 +111,16 @@ const TextEditor = () => {
 
   function uploadPlugin(editor) {
     editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-        return uploadAdapter(loader);
-    }
-}
+      return uploadAdapter(loader);
+    };
+  }
   return (
     <div>
       <div className="App shadow-lg border-1 rounded bg-white minH">
         <CKEditor
-         config={{
-            extraPlugins: [uploadPlugin]
-        }}
+          config={{
+            extraPlugins: [uploadPlugin],
+          }}
           editor={Editor}
           data={Content}
           onReady={(editor) => {

@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import User
 from rest_framework.authtoken.views import Token
 
-from .models import Profile,Post
+from .models import Profile,Post,PostImage
 # class HomeSerializer(ModelSerializer):
 #     class Meta:
 #         model = Articles
@@ -29,6 +29,15 @@ class PostSerializer(ModelSerializer):
         model = Post
         fields = ('user','content')
         # fields = ('__all__')
+        
+class PostImageSerializer(ModelSerializer):
+    class Meta:
+        model = PostImage
+        fields = ('__all__')
+        
+    def create(self, validated_data):
+        return PostImage.objects.create(**validated_data)
+
         
     
     # def create(self, validated_data):
