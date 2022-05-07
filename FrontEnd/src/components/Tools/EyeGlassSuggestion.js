@@ -41,7 +41,7 @@ export const EyeGlassSuggestion = () => {
   return (
     <>
 <Breadcrumb/>
-      <section className="container w-3/4 h-screen bg-gray-100 mx-auto">
+      <section className="container h-screen bg-gray-100 mx-auto">
         <h3 className="text-center font-mono text-2xl my-5">
           Find Eye glass according to your Faceshape
         </h3>

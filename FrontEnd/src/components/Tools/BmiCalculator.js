@@ -49,7 +49,7 @@ export default function BmiCalculator() {
     return (
         <>
         <Breadcrumb/>
-        <section className="container w-3/4 h-screen bg-gray-100 mx-auto">
+        <section className="container  h-screen bg-gray-100 mx-auto">
             <h2 className=' mx-auto text-6xl text-center bg-green-500 p-5 rounded-b-2xl text-white ' style={{ fontFamily: `"Cormorant Garamond"` }}> BMI Calculator</h2>
 
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">

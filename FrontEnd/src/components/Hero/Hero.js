@@ -9,6 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import HeroImage from '../../images/Hero/hero1.svg';
 import { ShowDp } from "../../ReduxFiles/Actions/ProfileActions";
+import { Links } from "../NavBar/NavLinks";
 const Hero = () => {
   const { REACT_APP_API_URL } = process.env;
   const [token, settoken] = useCookies();
@@ -64,6 +65,12 @@ const Hero = () => {
           <p className="font-semibold lg:text-3xl mb-4 space-x-5 text-sm mt-5 lg:mt-7 text-gray-300">A free platform for your complete </p>
 
           <h2 className="font-bold text-white text-5xl lg:text-6xl  capitalize  ">fashion and fitness solution..</h2>
+
+          <div className=" flex   sm:3/4 lg:w-1/2 mt-5 ">
+              <Links  styles="shadow-lg bg-green-500 text-center font-bold text-lg   hover:bg-pyBlue-400  rounded-lg p-5 lg:w-1/2  mr-4 " location='/login' name='Login' />
+              <Links styles="shadow-lg bg-gray-300 text-black text-center font-bold text-lg  hover:bg-pyBlue-400 hover:text-white rounded-lg p-5 lg:w-1/2 " location='/signup' name='Sign Up' />
+
+            </div>
           {/* <p className="font-semibold lg:text-xl text-sm mt-5 lg:mt-7 text-gray-300">A free platform for your complete </p> */}
           {/* <p className="font-semibold lg:text-xl text-sm mt-5 lg:mt-7 text-gray-300">A free platform for beginners to Showcase their projects and tools and get their dream job.</p> */}
         </div>

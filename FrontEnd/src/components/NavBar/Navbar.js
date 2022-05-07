@@ -121,11 +121,7 @@ const Navbar = () => {
               </div>
             </>
           ) : (
-            <div className="flex lg:w-60 sm:20 justify-around ">
-              <Links  styles="shadow-lg bg-green-500 text-center font-bold text-lg   hover:bg-pyBlue-400  rounded-lg p-5 w-1/2 mx-2 " location='/login' name='Login' />
-              <Links styles="shadow-lg bg-gray-300 text-black text-center font-bold text-lg  hover:bg-pyBlue-400 hover:text-white rounded-lg p-5 w-1/2" location='/signup' name='Sign Up' />
-
-            </div>
+            ""
           )}
         </div>
         {/* For Small devices */}

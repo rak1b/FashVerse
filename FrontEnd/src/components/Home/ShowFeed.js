@@ -60,7 +60,6 @@ const ShowFeed = () => {
       
   return (
       <>
-    <div>ShowFeed</div>
     <div>
     {
       Posts.map((post) => {

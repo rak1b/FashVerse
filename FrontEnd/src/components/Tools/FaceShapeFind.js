@@ -73,12 +73,12 @@ const FaceShapeFind = () => {
         <>
         <Breadcrumb/>
 
-            <section className="container w-3/4 h-screen bg-gray-100 mx-auto">
-                <h2 className=' mx-auto text-6xl text-center bg-green-500 p-5 rounded-b-2xl text-white ' style={{ fontFamily: `"Cormorant Garamond"` }}>Face Shape App</h2>
+            <section className=" p-4 h-screen bg-gray-100 mx-auto">
+                <h2 className=' mx-auto text-4xl w-1/2 mb-2 text-center bg-green-500 p-5 rounded-b-2xl text-white ' style={{ fontFamily: `"Cormorant Garamond"` }}>Face Shape App</h2>
 
                 <div style={{ "backgroundcolor": "rgba(0, 0, 0, 0)" }}>
-                    <div class="container px-5 py-24 mx-auto" style={{ "cursor": "auto" }}>
-                        <div class="lg:w-4/5 mx-auto flex flex-wrap">
+                    <div class="container mx-auto" style={{ "cursor": "auto" }}>
+                        <div class="lg:w-full mx-auto flex flex-wrap">
                             {showUploadPlace ? <DragNDrop SetFilesForOrginal={setFiles} /> :
                                 <img alt="face" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={face_cart} style={{ "cursor": "auto" }} />}
                             {/* <UploadPlace/> */}
