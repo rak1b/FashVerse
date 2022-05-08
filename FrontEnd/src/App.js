@@ -13,6 +13,7 @@ import ToolSingle from "./components/Tools/ToolComponents/ToolSingle";
 import FaceShapeFind from './components/Tools/FaceShapeFind';
 import { useCookies } from 'react-cookie';
 import { HomePage } from './components/Home/home';
+import ProfileModal from './components/Profile/Profile';
 function App() {
   const [token, settoken] = useCookies();
 
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/tools/" element={<Tools/>} />
         <Route exact path="/tools/:name" element={<ToolSingle/>} />
         <Route exact path="/news" element={<News/>} />
+        <Route exact path="/me" element={<ProfileModal/>} />
         {/* <Route exact path="/" element={<Hero/>} /> */}
         <Route exact path="/" element={token['token']?<HomePage/>:<Hero/>} />
         <Route element={<Error/>} />

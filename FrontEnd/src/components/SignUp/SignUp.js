@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import URL from "../../BaseUrl/Url";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const styles = "h-12 border-2 rounded-md border-2 outline-none focus-within:border-pyBlue-300";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const styles =
+  "h-12 border-2 rounded-md border-2 outline-none focus-within:border-pyBlue-300";
 const SignUp = () => {
   const navigate = useNavigate();
   const [username, setusername] = useState();
   const [password, setpassword] = useState();
+  const [Confirmpassword, setConfirmpassword] = useState();
   const [email, setemail] = useState();
+  const [fname, setfname] = useState();
+  const [lname, setlname] = useState();
 
   const DoSignup = () => {
     const url = `${URL}/api/users/`;
@@ -17,6 +21,8 @@ const SignUp = () => {
       username: username,
       email: email,
       password: password,
+      first_name:fname,
+      last_name:lname,
     };
 
     console.log(data);
@@ -25,7 +31,7 @@ const SignUp = () => {
       .post(url, data)
       .then((response) => {
         console.log(response.data);
-        toast.success(`Account Created Successfully`)
+        toast.success(`Account Created Successfully`);
 
         setTimeout(function () {
           navigate("/login");
@@ -33,8 +39,7 @@ const SignUp = () => {
       })
       .catch(function (error) {
         console.log(error);
-        toast.error(`Error occured,please try again!`)
-
+        toast.error(`Error occured,please try again!`);
       });
   };
 
@@ -43,7 +48,7 @@ const SignUp = () => {
       <div className="form_container flex flex-col lg:w-2/3 md:w-2/3 w-full ">
         <h2 className="text-3xl text-pyBlue-500 font-bold">Signup</h2>
         <div className="flex flex-col mt-7">
-          <div className="flex flex-col my-4">
+          {/* <div className="flex flex-col my-4">
             <label className="font-bold text-gray-500" htmlFor="Email">
               Enter Email :
             </label>
@@ -57,7 +62,7 @@ const SignUp = () => {
               type="email"
               placeholder="Email"
             />
-          </div>
+          </div> */}
 
           <div className="flex flex-col my-4">
             <label className="font-bold text-gray-500" htmlFor="Username">
@@ -75,7 +80,58 @@ const SignUp = () => {
             />
           </div>
 
+          <div className="flex w-full">
+            <div className="flex flex-col my-4 w-1/2">
+              <label className="font-bold text-gray-500" htmlFor="fname">
+                Enter First Name :
+              </label>
+              <input
+                id="fname"
+                onChange={(e) => {
+                  setfname(e.target.value);
+                }}
+                value={fname}
+                className={styles}
+                type="text"
+                placeholder="First Name"
+              />
+            </div>
+
+            <div className="flex flex-col my-4 ml-4 w-1/2">
+              <label className="font-bold text-gray-500" htmlFor="lname">
+                Enter Last Name :
+              </label>
+              <input
+                id="fname"
+                onChange={(e) => {
+                  setlname(e.target.value);
+                }}
+                value={lname}
+                className={styles}
+                type="text"
+                placeholder="Last Name"
+              />
+            </div>
+          </div>
+
           <div className="flex flex-col my-4 ">
+            <label className="font-bold text-gray-500" htmlFor="email">
+              Enter email :
+            </label>
+            <input
+              id="email"
+              onChange={(e) => {
+                setemail(e.target.value);
+              }}
+              value={email}
+              className={styles}
+              type="text"
+              placeholder="Email"
+            />
+          </div>
+          <div className="flex w-full">
+
+          <div className="flex flex-col my-4 w-1/2 ">
             <label className="font-bold text-gray-500" htmlFor="Password">
               Enter Password :
             </label>
@@ -91,14 +147,30 @@ const SignUp = () => {
             />
           </div>
 
-          <div className="flex flex-col my-4">
-            <label className="font-bold text-gray-500" htmlFor="Confirm_Password">
+          <div className="flex flex-col my-4 w-1/2 ml-2">
+            <label
+              className="font-bold text-gray-500"
+              htmlFor="Confirm_Password"
+            >
               Confirm Password :
             </label>
-            <input id="Confirm_Password" className={styles} type="password" placeholder="Confirm Password" />
+            <input
+              id="Confirm_Password"
+              onChange={(e) => {
+                setConfirmpassword(e.target.value);
+              }}
+              value={Confirmpassword}
+              className={styles}
+              type="password"
+              placeholder="Confirm Password"
+            />
+          </div>
           </div>
 
-          <button onClick={DoSignup} className="bg-pyBlue-400 w-40 p-3 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-500">
+          <button
+            onClick={DoSignup}
+            className="bg-pyBlue-400 w-40 p-3 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-500"
+          >
             Submit
           </button>
         </div>
@@ -106,7 +178,9 @@ const SignUp = () => {
       <div className="w-full md:w-1/3 lg:w-1/3  ">
         <div className="w-9/12 lg:mx-auto md:mx-auto sm:mt-8 flex flex-col">
           <h2 className="text-gray-700 font-bold">Already have an account?</h2>
-          <p className="text-gray-500 my-5">If you already have a Pytools account please sign in.</p>
+          <p className="text-gray-500 my-5">
+            If you already have a Pytools account please sign in.
+          </p>
           <button
             onClick={() => {
               navigate("/login");
@@ -129,8 +203,6 @@ const SignUp = () => {
         pauseOnHover
       />
     </div>
-
-
   );
 };
 

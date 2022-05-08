@@ -13,13 +13,24 @@ from .models import Profile,Post,PostImage
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ('username','password')
+        fields = ('username','password','email','first_name','last_name')
     
     def create(self, validated_data):
         
         user = User.objects.create_user(**validated_data)
         if user:
             Profile.objects.create(user=user)
+            print(validated_data)
+            updateUser = User.objects.get(username=validated_data['username'])
+            updateUser.email = validated_data['email']
+            updateUser.first_name = validated_data['first_name']
+            updateUser.last_name = validated_data['last_name']
+            updateUser.save()
+            print("after create.........")
+            
+            print(updateUser)
+            print(validated_data)
+            
         print(Token.objects.create(user=user))
         return user
       

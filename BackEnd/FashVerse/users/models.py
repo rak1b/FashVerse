@@ -9,7 +9,6 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
     )
     Dp = models.ImageField(upload_to="Profile/Dp",default="Profile/Dp/profile.jpg",blank=True)
-    Cp = models.ImageField(upload_to="Profile/Cp",blank=True)
     
     def __str__(self):
         return self.user.username + " Profile "
