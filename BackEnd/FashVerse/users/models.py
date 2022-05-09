@@ -9,7 +9,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
     )
     Dp = models.ImageField(upload_to="Profile/Dp",default="Profile/Dp/profile.jpg",blank=True)
-    
+    bio = models.TextField(max_length=250,default="I am new here")
     def __str__(self):
         return self.user.username + " Profile "
 
@@ -20,7 +20,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
     
-    content = models.CharField(max_length=2500)
+    content = models.CharField(max_length=25000)
     created = models.DateTimeField(auto_now_add=True)
     
     
@@ -28,7 +28,7 @@ class Post(models.Model):
         return self.user.username + " Post "
 
 class PostImage(models.Model):
-    # post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+    
     image = models.ImageField(upload_to='PostImages/')
 
     # def __str__(self):

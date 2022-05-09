@@ -31,15 +31,6 @@ const ShowFeed = () => {
     
   
     if(token["token"]) {
-        // ApiClient()
-        //   .get(`/api/Profile/${token["token"]}/`)
-        //   .then((response) => {
-        //     console.log(response.data.data.user);
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });
-      
 
         ApiClient()
           .get(`/api/posts/`)

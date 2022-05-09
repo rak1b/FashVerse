@@ -1,14 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ReactDOM } from "react-dom";
 import Female from "../../images/female.jpg";
 import { useSelector } from "react-redux";
 import { SideNav } from "../Home/SIdeNav";
 import { LinkInfo_HomePage } from "../NavBar/LInkInfo";
 import ProfileCard from "./ProfileCard";
+import ShowOwnPosts from "./ShowOwnPosts";
+import ApiClient from "./../../API/ApiClient";
+import { useCookies } from "react-cookie";
+import { DndProvider } from 'react-dnd';
 
 const ProfileModal = ({ hideProfileModal, details }) => {
   const { REACT_APP_API_URL } = process.env;
+  const [Posts, setPosts] = useState([]);
+
   // const ProfileState = useSelector(state => state.PROFILE);
+  const [Loaded, setLoaded] = useState(0);
+  const [ProfileData, setProfileData] = useState([]);
+  const [token, settoken] = useCookies();
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (token["token"]) {
+        ApiClient()
+          .get(`/api/Profile/${token["token"]}/`)
+          .then((response) => {
+            console.log(response.data);
+            setProfileData(response.data);
+            setLoaded(1);
+            console.log("Printintng profile data");
+            console.log(ProfileData);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        setLoaded(0);
+      }
+    }, 2000);
+  }, [token["token"]]);
+
+  useEffect(() => {
+    if (Loaded) {
+      ApiClient()
+        .get(`/api/posts/${ProfileData.data.user}/`)
+        .then((response) => {
+          console.log(response.data);
+          // setcontent(response.data[14].content)
+          setPosts(response.data);
+          console.log(Posts);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }, [Loaded]);
 
   return (
     <>
@@ -26,7 +72,10 @@ const ProfileModal = ({ hideProfileModal, details }) => {
         {/* <NavLinks LinkInfo={LinkInfo_Logged_in}/> */}
 
         <div className="w-3/5   h-full overflow-x-scroll antialiased shadow-sm">
-          <ProfileCard/>
+          <ProfileCard ProfileData={ProfileData} posts={Posts} Loaded={Loaded} />
+          <div className="mx-10">
+          <ShowOwnPosts posts={Posts} Loaded={Loaded} />
+          </div>
         </div>
       </div>
     </>

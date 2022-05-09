@@ -98,7 +98,8 @@ class ProfileViewSet(viewsets.ViewSet):
             'lname':userDetails.last_name,
             'full_name':userDetails.first_name +" " +userDetails.last_name,
             'username':userDetails.username,
-            'email':userDetails.email,}
+            'email':userDetails.email,
+            }
         print(details)
         # profile = Profile.objects.get(user=User.objects.get(username=userInfo.username))
         serializer = ProfileSerializer(profile)
@@ -119,15 +120,35 @@ class PostViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        queryset = Post.objects.all()
-        user = get_object_or_404(queryset, pk=pk)
-        serializer = PostSerializer(user)
+        user = User.objects.get(id=pk)
+        queryset = Post.objects.filter(user=user).order_by('-created')
+        
+        serializer = PostSerializer(queryset, many=True)
         return Response(serializer.data)
     
     def create(self, request):
+        
+        import re
+
+        text = request.data['content']
+        first_image = ''
+
+        try:
+            first_image = re.search('''src="(.+?)"''', text).group(1)
+        except AttributeError:
+            first_image = '' 
+
+        # print("FOund-----------------------\n")
+        # print(first_image)
+        
+        # print("replaced")
+        # text = text.replace(first_image, "") 
+        # print(text)
+        # print("--------------------------\n\n")
         serializer = PostSerializer(data={'user':request.data['user'],
-                                          'content':f'''{request.data['content']}'''
+                                          'content':request.data['content']
                                           })
+        
         
         print(f'''{request.data['content']}''')
         if serializer.is_valid():
