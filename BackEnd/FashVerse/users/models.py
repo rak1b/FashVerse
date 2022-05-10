@@ -19,7 +19,8 @@ class Post(models.Model):
         User,
         on_delete=models.CASCADE,
     )
-    
+    username = models.CharField(max_length=100)
+    fullname = models.CharField(max_length=100)
     content = models.CharField(max_length=25000)
     created = models.DateTimeField(auto_now_add=True)
     

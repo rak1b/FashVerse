@@ -117,6 +117,7 @@ class PostViewSet(viewsets.ViewSet):
     def list(self, request):
         queryset = Post.objects.order_by('-created')
         serializer = PostSerializer(queryset, many=True)
+    
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
@@ -128,15 +129,15 @@ class PostViewSet(viewsets.ViewSet):
     
     def create(self, request):
         
-        import re
+        # import re
 
-        text = request.data['content']
-        first_image = ''
+        # text = request.data['content']
+        # first_image = ''
 
-        try:
-            first_image = re.search('''src="(.+?)"''', text).group(1)
-        except AttributeError:
-            first_image = '' 
+        # try:
+        #     first_image = re.search('''src="(.+?)"''', text).group(1)
+        # except AttributeError:
+        #     first_image = '' 
 
         # print("FOund-----------------------\n")
         # print(first_image)
@@ -145,12 +146,14 @@ class PostViewSet(viewsets.ViewSet):
         # text = text.replace(first_image, "") 
         # print(text)
         # print("--------------------------\n\n")
-        serializer = PostSerializer(data={'user':request.data['user'],
-                                          'content':request.data['content']
-                                          })
+        # serializer = PostSerializer(data={'user':request.data['user'],
+        #                                   'content':request.data['content']
+        #                                   })
+        
+        serializer = PostSerializer(data=request.data)
         
         
-        print(f'''{request.data['content']}''')
+        
         if serializer.is_valid():
             serializer.save()
             return Response({'data':'Created'},status=status.HTTP_201_CREATED)

@@ -12,7 +12,7 @@ const Content = ({posts}) =>{
       {
         posts.map((post) => {
           
-           return <PostCard content={post.content}/>}
+           return <PostCard content={post.content} username="Me"/>}
            
             
         )
@@ -25,7 +25,7 @@ const Content = ({posts}) =>{
 const ShowOwnPosts = ({posts,Loaded}) => {
         
     return (
-        Loaded?<Content posts={posts}/>:''
+        Loaded?<Content posts={posts} />:''
         
     )
   }

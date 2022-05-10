@@ -6,11 +6,13 @@ import PortfolioMaker from "./../PortfolioMaker/PortfolioMaker";
 import { EyeGlassSuggestion } from "../EyeGlassSuggestion";
 import { SideNav } from "../../Home/SIdeNav";
 import { LinkInfo_HomePage } from "../../NavBar/LInkInfo";
+import CalorieTracker from "../CalorieTracker/CalorieTracker";
 const appsList = {
   "Faceshape-detection": <FaceShapeFind />,
   "Bmi-Calculator": <BmiCalculator />,
   "PortFolio-Maker": <PortfolioMaker />,
   "EyeGlass-Suggestion": <EyeGlassSuggestion />,
+  "Calorie-Tracker":<CalorieTracker/>
 };
 
 const ToolSingle = () => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
 // import {Editor as ClassicEditor} from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -25,43 +25,51 @@ const TextEditor = () => {
 
   // const API_URl = "https://noteyard-backend.herokuapp.com";
   // const UPLOAD_ENDPOINT = "api/blogs/uploadImg";
+useEffect(() => {
+  
 
   if (token["token"]) {
     ApiClient()
       .get(`/api/Profile/${token["token"]}/`)
       .then((response) => {
-        console.log(response.data.data.user);
-        SetCurrentUser(response.data.data.user);
+        // console.log('Log from useefffect........................')
+        // console.log(response.data.data.user);
+        SetCurrentUser(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  const CreatePost = () => {
-    // const url = `${URL}/api/posts/`;
-    const url = `/api/posts/`;
-    const data = {
-      user: CurrentUser,
-      content: Content,
-    };
-
-    console.log(data);
-
-    ApiClient()
-      .post(url, data)
-      .then((response) => {
-        console.log(response.data);
-        toast.success(`Post Created Successfully`);
-        setContent("");
-      })
-      .catch(function (error) {
-        console.log(error);
-        toast.error(`Error occured,please try again!`);
-      });
-  };
-
+  // console.log("Current user/////////////////////")
+  // console.log(CurrentUser)
  
+}, [])
+
+const CreatePost = () => {
+  // const url = `${URL}/api/posts/`;
+  const url = `/api/posts/`;
+  const data = {
+    user: CurrentUser.data.user,
+    username: CurrentUser.details.username,
+    fullname: CurrentUser.details.full_name,
+    content: Content,
+  };
+  // console.log('Ready for posting log...........')
+  // console.log(data);
+
+  ApiClient()
+    .post(url, data)
+    .then((response) => {
+      // console.log(response.data);
+      toast.success(`Post Created Successfully`);
+      setContent("");
+    })
+    .catch(function (error) {
+      // console.log(error);
+      toast.error(`Error occured,please try again!`);
+    });
+};
   function uploadAdapter(loader) {
     return {
       upload: () => {
@@ -129,7 +137,7 @@ const TextEditor = () => {
           onChange={(event, editor) => {
             const data = editor.getData();
             setContent(data);
-            console.log(Content);
+            // console.log(Content);
 
             // console.log({ event, editor, data });
           }}

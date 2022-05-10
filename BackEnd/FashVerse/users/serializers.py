@@ -38,8 +38,10 @@ class UserSerializer(ModelSerializer):
 class PostSerializer(ModelSerializer):
     class Meta:
         model = Post
-        fields = ('user','content')
-        # fields = ('__all__')
+        # fields = ('user','content')
+        fields = ('__all__')
+  
+        
         
 class PostImageSerializer(ModelSerializer):
     class Meta:

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import profile from "../../images/profile.jpg";
 import Logo from "../../images/Logo.png";
 import NavSearch from "./NavSearch";
-import { Menu } from "react-feather";
+import { Link, Menu } from "react-feather";
 import {Links,NavLinks} from "./NavLinks";
 import { useDispatch, useSelector } from "react-redux";
 import ApiClient from "./../../API/ApiClient";
 import { useCookies } from "react-cookie";
 import { ShowDp } from "../../ReduxFiles/Actions/ProfileActions";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProfileModal from "../Profile/Profile";
 import { LinkInfo_Logged_in, LinkInfo_Logged_out } from "./LInkInfo";
 
@@ -18,7 +18,7 @@ const Navbar = () => {
   const [Loaded, setLoaded] = useState(0);
   const [ProfileMod, setProfileMod] = useState(0);
   const [token, settoken] = useCookies();
-
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     if (token["token"]) {
@@ -99,11 +99,12 @@ const Navbar = () => {
                   className="relative cursor-pointer"
                   onClick={() => {
                     setProfileMod(1);
-                    console.log(ProfileMod);
-                    console.log("show profile");
                   }}
                 >
                   <span className="w-3 h-3 block absolute right-0 bg-green-300 shadow-lg rounded-full"></span>
+                  <div onClick={() => {
+                    navigate('/me')
+                  }} >
                   {Loaded ? (
                     <img
                       className="w-12 h-12 rounded-full ml-2 lg:ml-4"
@@ -117,6 +118,7 @@ const Navbar = () => {
                       alt=""
                     />
                   )}
+                  </div>
                 </div>
               </div>
             </>
@@ -140,7 +142,7 @@ const Navbar = () => {
 
         {/* (ShowNav ? <NavLinks LinkInfo = {LinkInfo_Logged_out} /> : "")} */}
       </div>
-      {ProfileMod ? <ProfileModal hideProfileModal={setProfileMod} details={ProfileState}/> : ""}
+      {/* {ProfileMod ? <ProfileModal hideProfileModal={setProfileMod} details={ProfileState}/> : ""} */}
     </>
   );
 };

@@ -59,7 +59,7 @@ const ShowFeed = () => {
         return '';
       }
       else{
-         return <PostCard content={post.content}/>}
+         return <PostCard content={post.content} fullname={post.fullname} username={post.username}/>}
          
           
       })
