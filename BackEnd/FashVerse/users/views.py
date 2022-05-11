@@ -1,8 +1,9 @@
 
 
-from .serializers import PostImageSerializer, ProfileSerializer,PostSerializer,UserSerializer
+import re
+from .serializers import PostImageSerializer, ProfileSerializer,PostSerializer,UserSerializer,PostReactSerializer
 from rest_framework import viewsets
-from .models import Post, PostImage, Profile
+from .models import Post, PostImage, PostReact, Profile
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
@@ -89,10 +90,17 @@ class ProfileViewSet(viewsets.ViewSet):
         return Response(serializer.data)
     
     def retrieve(self,request,pk=None):
-        userInfo = Token.objects.get(key=pk)
+        try:
+            userInfo = Token.objects.get(key=pk)
         # print(userInfo.user)
-        profile = Profile.objects.get(user=userInfo.user)
-        userDetails = User.objects.get(id=userInfo.user.id)
+            profile = Profile.objects.get(user=userInfo.user)
+            userDetails = User.objects.get(id=userInfo.user.id)
+        except:
+        # print(userInfo.user)
+            userDetails = User.objects.get(username=pk)
+            profile = Profile.objects.get(user=userDetails)
+            
+            
         details = {
             'fname':userDetails.first_name,
             'lname':userDetails.last_name,
@@ -121,7 +129,7 @@ class PostViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        user = User.objects.get(id=pk)
+        user = User.objects.get(username=pk)
         queryset = Post.objects.filter(user=user).order_by('-created')
         
         serializer = PostSerializer(queryset, many=True)
@@ -129,37 +137,20 @@ class PostViewSet(viewsets.ViewSet):
     
     def create(self, request):
         
-        # import re
 
-        # text = request.data['content']
-        # first_image = ''
-
-        # try:
-        #     first_image = re.search('''src="(.+?)"''', text).group(1)
-        # except AttributeError:
-        #     first_image = '' 
-
-        # print("FOund-----------------------\n")
-        # print(first_image)
-        
-        # print("replaced")
-        # text = text.replace(first_image, "") 
-        # print(text)
-        # print("--------------------------\n\n")
-        # serializer = PostSerializer(data={'user':request.data['user'],
-        #                                   'content':request.data['content']
-        #                                   })
-        
         serializer = PostSerializer(data=request.data)
-        
-        
         
         if serializer.is_valid():
             serializer.save()
             return Response({'data':'Created'},status=status.HTTP_201_CREATED)
         return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
     
-    
+    # def partial_update(self, request, pk=None):
+    #     post = Post.objects.get(id=pk)
+    #     data  = request.data['user']
+        
+    #     return Response('')
+        
     
 class PostImageViewset(viewsets.ViewSet):
     """
@@ -170,37 +161,7 @@ class PostImageViewset(viewsets.ViewSet):
         serializer = PostImageSerializer(queryset, many=True)
         return Response(serializer.data)
 
-   #  def retrieve(self, request, pk=None):
-   #      queryset = User.objects.all()
-   #      user = get_object_or_404(queryset, pk=pk)
-   #      serializer = UserSerializer(user)
-   #      return Response(serializer.data)
-    
-    # def create(self, request):
-    #    data=request.data
-    #    print(data)
-      
-    #    serializer = PostImageSerializer(data=data)
-    #    recieved_image_name = str(data['image'])
-    #    str_image_name = str(data['image'])
-      
-    #   # cv2.imshow(data['face'])
-    #    if serializer.is_valid():
-    #         serializer.save()
-    #             # return Response(serializer.data,status=status.HTTP_201_CREATED)
-    #         res = {
-    #                 'data':'created',
-    #                 'url':f"/PostImages/{str_image_name}"
-    #             }
-                
-    #         return Response(res,status=status.HTTP_201_CREATED)
-    #    else:
-    #             print("Invalid serializers \n")
-    #             print(serializer.errors)
-    #             return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
-                
-            
-            
+   
     def create(self, request):
         
       serializer = PostImageSerializer(data=request.data)
@@ -217,3 +178,42 @@ class PostImageViewset(viewsets.ViewSet):
          return Response({'url':image_path,"status":'created'},status=status.HTTP_201_CREATED)
       return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         # Response { type: "cors", url: "https://noteyard-backend.herokuapp.com/api/blogs/uploadImg", redirected: false, status: 200, ok: true, statusText: "OK", headers: Headers, body: ReadableStream, bodyUsed: false }
+
+# {
+#     "love": false,
+#     "post": 47,
+#     "loved_by": ['rak1b']
+# }
+        
+class PostReactViewSet(viewsets.ViewSet):
+    """
+    A simple ViewSet for viewing and editing accounts.
+    """
+    # queryset = PostReact.objects.all()
+    # serializer_class = PostReactSerializer
+    
+    def list(self, request):
+        queryset = PostReact.objects.all()
+        serializer = PostReactSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def create(self, request):
+        # data=request.data
+        print('creating................')
+        print(request.data)
+        print(request)
+        
+        newdata = {
+            'post':Post.objects.get(id=request.data['post']),
+            'love':request.data['love'],
+            'loved_by':User.objects.get(username = request.data['username'])
+        }
+        # serializer = PostSerializer(data = newdata)
+        serializer = PostSerializer(data = request.data)
+        
+        if serializer.is_valid():
+            # serializer.save()
+            print('valid')
+            print(request.data)
+            return Response({'data':'Created'},status=status.HTTP_201_CREATED)
+        return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Markup } from "interweave";
+import { useCookies } from 'react-cookie';
 
-const PostCard = ({ content,username,fullname }) => {
+const PostCard = ({ content,username,fullname,id }) => {
+  const [CurrentUser, SetCurrentUser] = useCookies("");
 
   const [Display, setDisplay] = useState(0)
 
@@ -9,6 +11,11 @@ const PostCard = ({ content,username,fullname }) => {
     setDisplay(!Display)
   }
 
+  const doReact = () => {
+  console.log(id)
+  console.log(CurrentUser['username'])
+    
+  }
   const ClassForContent = "bg-white border shadow p-5 text-xl text-gray-700"
 
   
@@ -24,7 +31,7 @@ const PostCard = ({ content,username,fullname }) => {
           <Markup content={content} />
         </div>
         <div className="bg-white p-3 border shadow-xl flex flex-row flex-wrap h">
-          <div className="w-1/3 m-auto  text-center text-xl text-gray-700 font-semibold">
+          <div onClick={doReact} className="w-1/3 m-auto  text-center text-xl text-gray-700 font-semibold">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-7 w-7 hover:text-red-500"

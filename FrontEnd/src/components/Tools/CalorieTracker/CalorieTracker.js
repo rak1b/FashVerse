@@ -3,6 +3,7 @@ import { useState } from "react";
 import Breadcrumb from "./../ToolComponents/Breadcrumb";
 import ApiClient from './../../../API/ApiClient';
 import CalorieFinder from './../CalorieFinder';
+import { Link } from 'react-router-dom';
 
 const CalorieTracker = () => {
   const [item, setitem] = useState();
@@ -81,6 +82,7 @@ const CalorieTracker = () => {
     
   }, [item_list])
   return (
+  <>
     <div className=" w-full">
       <Breadcrumb />
 
@@ -140,7 +142,7 @@ const CalorieTracker = () => {
         </div>
         
 
-<CalorieFinder/>
+{/* <CalorieFinder/> */}
         <div>
           {item_list.map((items, index) => {
               if(items.Date===Date){
@@ -198,6 +200,8 @@ const CalorieTracker = () => {
         </div>
       </div>
     </div>
+    <Link to="/tools/Nutrition-Database">Dont know the calorie?</Link>
+    </>
   );
 };
 

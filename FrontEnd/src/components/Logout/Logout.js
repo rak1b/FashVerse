@@ -12,6 +12,7 @@ const Logout = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     removeToken("token", { path: '/' });
+    removeToken("username", { path: '/' });
     dispatch(LogoutStatusActions());
     toast.warn(`Logout Successfull`)
 

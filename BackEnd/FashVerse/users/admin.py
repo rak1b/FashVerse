@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from users.models import PostImage
 
-from users.models import Profile,Post
+from users.models import Profile,Post,PostReact
 
 
 # Register your models here.
@@ -22,6 +22,12 @@ class UserPostAdmin(admin.ModelAdmin):
 @admin.register(PostImage)
 class PostImageAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(PostReact)
+class PostReactAdmin(admin.ModelAdmin):
+    pass
+
+
 
 
  

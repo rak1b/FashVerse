@@ -4,22 +4,18 @@ import { useCookies } from "react-cookie";
 import { Markup } from "interweave";
 import "./home.css"
 
-// const Links = ({ styles, location, name }) => {
-//   return (
-//     <NavLink exact="true"  activeclassname="border-t-2 border-pyYellow-400" className={styles} to={location}>
-//       {name}
-//     </NavLink>
-//   );
-// };
 
-const Links = ({ styles, location, name, icon }) => {
+const Links = ({ styles, location, name, icon,CurrentUsers }) => {
+  const [CurrentUser, SetCurrentUser] = useCookies("");
+
   return (
     <>
       <li className="" >
         <Link
           exact="true"
           className="flex items-center p-2  font-bold font-mono  text-gray-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 m-9 "
-          to={location}
+          to={location==="/profile"?`${location}/${CurrentUser['username']}`:location}
+          // to={location}
         >
           <svg
             xmlns={icon.xmlns}
@@ -39,7 +35,7 @@ s          >
   );
 };
 
-const SideNav = ({ LinkInfo }) => {
+const SideNav = ({ LinkInfo,CurrentUser }) => {
   const [token, settoken] = useCookies();
 
   const LinkStyles =
@@ -68,6 +64,7 @@ const SideNav = ({ LinkInfo }) => {
                   location={current.location}
                   name={current.name}
                   icon={current.icon}
+                  CurrentUser={CurrentUser}
                 />
               );
             })}

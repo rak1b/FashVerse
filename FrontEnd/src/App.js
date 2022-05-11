@@ -28,7 +28,7 @@ function App() {
         <Route exact path="/tools/" element={<Tools/>} />
         <Route exact path="/tools/:name" element={<ToolSingle/>} />
         <Route exact path="/news" element={<News/>} />
-        <Route exact path="/me" element={<ProfileModal/>} />
+        <Route exact path="/profile/:username" element={<ProfileModal/>} />
         {/* <Route exact path="/" element={<Hero/>} /> */}
         <Route exact path="/" element={token['token']?<HomePage/>:<Hero/>} />
         <Route element={<Error/>} />

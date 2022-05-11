@@ -46,7 +46,7 @@ const LinkInfo_Logged_in = [
     },
     {
       name: "Profile",
-      location: "/me",
+      location: "/profile",
        icon:{
         xmlns:"http://www.w3.org/2000/svg" ,
         className:homeClassname,

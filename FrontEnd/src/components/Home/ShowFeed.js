@@ -6,11 +6,13 @@ import { Markup } from 'interweave';
 import { useEffect } from 'react';
 import PostCard from './PostCard';
 
-const ShowFeed = () => {
+const ShowFeed = ({}) => {
+  const [CurrentUser, SetCurrentUser] = useCookies("");
+
   const [token, settoken] = useCookies();
   const [content, setcontent] = useState('')
   const [Posts, setPosts] = useState([])
-  const [CurrentUser, SetCurrentUser] = useState("");
+  // const [CurrentUser, SetCurrentUser] = useState("");
 
 
 
@@ -18,16 +20,16 @@ const ShowFeed = () => {
 
   useEffect(() => {
 
-    if (token["token"]) {
-      ApiClient()
-        .get(`/api/Profile/${token["token"]}/`)
-        .then((response) => {
-          SetCurrentUser(response.data.data.user);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
+    // if (token["token"]) {
+    //   ApiClient()
+    //     .get(`/api/Profile/${token["token"]}/`)
+    //     .then((response) => {
+    //       SetCurrentUser(response.data.data.user);
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+    // }
     
   
     if(token["token"]) {
@@ -54,12 +56,13 @@ const ShowFeed = () => {
     <div>
     {
       Posts.map((post) => {
+
         
-        if(post.user===CurrentUser){
+        if(post.username===CurrentUser['username']){
         return '';
       }
       else{
-         return <PostCard content={post.content} fullname={post.fullname} username={post.username}/>}
+         return <PostCard content={post.content} fullname={post.fullname} username={post.username} id={post.id}/>}
          
           
       })

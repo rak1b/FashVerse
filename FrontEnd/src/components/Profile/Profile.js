@@ -8,7 +8,9 @@ import ProfileCard from "./ProfileCard";
 import ShowOwnPosts from "./ShowOwnPosts";
 import ApiClient from "./../../API/ApiClient";
 import { useCookies } from "react-cookie";
-import { DndProvider } from 'react-dnd';
+import { DndProvider } from "react-dnd";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProfileModal = ({ hideProfileModal, details }) => {
   const { REACT_APP_API_URL } = process.env;
@@ -18,12 +20,25 @@ const ProfileModal = ({ hideProfileModal, details }) => {
   const [Loaded, setLoaded] = useState(0);
   const [ProfileData, setProfileData] = useState([]);
   const [token, settoken] = useCookies();
+  const [CurrentUser, SetCurrentUser] = useCookies("");
+  
+  const navigate = useNavigate();
+
+  const { username } = useParams();
+
+  console.log("username from useparams .................");
+  console.log(username);
+
+  if(username===undefined){
+    navigate("/")
+  }
 
   useEffect(() => {
     setTimeout(() => {
       if (token["token"]) {
         ApiClient()
-          .get(`/api/Profile/${token["token"]}/`)
+          // .get(username===undefined?`/api/Profile/${CurrentUser['username']}/`:`/api/Profile/${username}/`)
+          .get(`/api/Profile/${username}/`)
           .then((response) => {
             console.log(response.data);
             setProfileData(response.data);
@@ -36,16 +51,21 @@ const ProfileModal = ({ hideProfileModal, details }) => {
           });
       } else {
         setLoaded(0);
+        alert("Please login to view this website");
+        navigate("/login");
       }
     }, 2000);
-  }, [token["token"]]);
+  }, [username]);
 
   useEffect(() => {
     if (Loaded) {
       ApiClient()
-        .get(`/api/posts/${ProfileData.data.user}/`)
+        // .get(`/api/posts/${ProfileData.data.user}/`)
+        .get(`/api/posts/${username}/`)
         .then((response) => {
           console.log(response.data);
+          console.log("log from useparams .................");
+
           // setcontent(response.data[14].content)
           setPosts(response.data);
           console.log(Posts);
@@ -72,9 +92,13 @@ const ProfileModal = ({ hideProfileModal, details }) => {
         {/* <NavLinks LinkInfo={LinkInfo_Logged_in}/> */}
 
         <div className="w-3/5   h-full overflow-x-scroll antialiased shadow-sm">
-          <ProfileCard ProfileData={ProfileData} posts={Posts} Loaded={Loaded} />
+          <ProfileCard
+            ProfileData={ProfileData}
+            posts={Posts}
+            Loaded={Loaded}
+          />
           <div className="mx-10">
-          <ShowOwnPosts posts={Posts} Loaded={Loaded} />
+            <ShowOwnPosts posts={Posts} Loaded={Loaded} />
           </div>
         </div>
       </div>

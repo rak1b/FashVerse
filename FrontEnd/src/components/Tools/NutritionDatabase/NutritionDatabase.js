@@ -63,7 +63,7 @@ const NutritionDatabase = () => {
           placeholder="Search Food.." className="px-4 w-full py-2 h-24"  />
         </div>
       </div>
-      <div className="flex flex-col w-4/5 shadow bg-white m-auto">
+      <div className="flex flex-col w-4/5 h-screen shadow bg-white m-auto">
         <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
             {Loaded && foodResult.foods[0] !== undefined ? (
