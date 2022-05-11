@@ -7,12 +7,14 @@ import { EyeGlassSuggestion } from "../EyeGlassSuggestion";
 import { SideNav } from "../../Home/SIdeNav";
 import { LinkInfo_HomePage } from "../../NavBar/LInkInfo";
 import CalorieTracker from "../CalorieTracker/CalorieTracker";
+import NutritionDatabase from './../NutritionDatabase/NutritionDatabase';
 const appsList = {
   "Faceshape-detection": <FaceShapeFind />,
   "Bmi-Calculator": <BmiCalculator />,
   "PortFolio-Maker": <PortfolioMaker />,
   "EyeGlass-Suggestion": <EyeGlassSuggestion />,
-  "Calorie-Tracker":<CalorieTracker/>
+  "Calorie-Tracker":<CalorieTracker/>,
+  "Nutrition-Database":<NutritionDatabase/>
 };
 
 const ToolSingle = () => {

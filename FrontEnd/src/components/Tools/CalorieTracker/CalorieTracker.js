@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Breadcrumb from "./../ToolComponents/Breadcrumb";
+import ApiClient from './../../../API/ApiClient';
+import CalorieFinder from './../CalorieFinder';
 
 const CalorieTracker = () => {
   const [item, setitem] = useState();
   const [Calorie, setCalorie] = useState();
   const [Date, setDate] = useState();
+ 
+
+  
   const [item_list, set_item_list] = useState(localStorage.getItem('CT_Data')?JSON.parse(localStorage.getItem('CT_Data')):[]);
   const grab_input = (e) => {
     setitem(e.target.value);
@@ -15,6 +20,8 @@ const CalorieTracker = () => {
     console.log(e.target.value);
     
   };
+
+
 
   const grab_date = (e) => {
     setDate(e.target.value);
@@ -27,7 +34,7 @@ const CalorieTracker = () => {
     if(item === ""){
 
       alert("Enter food....");
-    }else if(Calorie == ""){
+    }else if(Calorie === ""){
 
         alert("Enter calorie for the food....");
       
@@ -133,6 +140,7 @@ const CalorieTracker = () => {
         </div>
         
 
+<CalorieFinder/>
         <div>
           {item_list.map((items, index) => {
               if(items.Date===Date){
