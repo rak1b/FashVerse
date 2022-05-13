@@ -5,7 +5,8 @@ import URL from "../../BaseUrl/Url";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const styles =
-  "h-12 border-2 rounded-md border-2 outline-none focus-within:border-pyBlue-300";
+  " text-gray-900 border border-blue-300 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline";
+  // "h-12 border-2 rounded-md border-2 outline-none focus-within:border-pyBlue-300";
 const SignUp = () => {
   const navigate = useNavigate();
   const [username, setusername] = useState();
@@ -44,9 +45,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="h-auto w-3/4 mx-auto  flex flex-wrap mt-5">
+    <div className="h-auto w-3/4 mx-auto  flex flex-wrap mt-10 rounded-lg shadow-xl p-14 bg-white">
       <div className="form_container flex flex-col lg:w-2/3 md:w-2/3 w-full ">
-        <h2 className="text-3xl text-pyBlue-500 font-bold">Signup</h2>
+        <h2 className="text-xl text-blue-300  font-bold uppercase">Register</h2>
         <div className="flex flex-col mt-7">
           {/* <div className="flex flex-col my-4">
             <label className="font-bold text-gray-500" htmlFor="Email">
@@ -65,7 +66,7 @@ const SignUp = () => {
           </div> */}
 
           <div className="flex flex-col my-4">
-            <label className="font-bold text-gray-500" htmlFor="Username">
+            <label className="font-bold text-gray-400 uppercase text-sm" htmlFor="Username">
               Enter username :
             </label>
             <input
@@ -82,7 +83,7 @@ const SignUp = () => {
 
           <div className="flex w-full">
             <div className="flex flex-col my-4 w-1/2">
-              <label className="font-bold text-gray-500" htmlFor="fname">
+              <label className="font-bold text-gray-400 uppercase text-sm" htmlFor="fname">
                 Enter First Name :
               </label>
               <input
@@ -98,7 +99,7 @@ const SignUp = () => {
             </div>
 
             <div className="flex flex-col my-4 ml-4 w-1/2">
-              <label className="font-bold text-gray-500" htmlFor="lname">
+              <label className="font-bold text-gray-400 uppercase text-sm" htmlFor="lname">
                 Enter Last Name :
               </label>
               <input
@@ -115,7 +116,7 @@ const SignUp = () => {
           </div>
 
           <div className="flex flex-col my-4 ">
-            <label className="font-bold text-gray-500" htmlFor="email">
+            <label className="font-bold text-gray-400 uppercase text-sm" htmlFor="email">
               Enter email :
             </label>
             <input
@@ -132,7 +133,7 @@ const SignUp = () => {
           <div className="flex w-full">
 
           <div className="flex flex-col my-4 w-1/2 ">
-            <label className="font-bold text-gray-500" htmlFor="Password">
+            <label className="font-bold text-gray-400 uppercase text-sm" htmlFor="Password">
               Enter Password :
             </label>
             <input
@@ -149,7 +150,7 @@ const SignUp = () => {
 
           <div className="flex flex-col my-4 w-1/2 ml-2">
             <label
-              className="font-bold text-gray-500"
+              className="font-bold text-gray-400 uppercase text-sm"
               htmlFor="Confirm_Password"
             >
               Confirm Password :
@@ -169,23 +170,23 @@ const SignUp = () => {
 
           <button
             onClick={DoSignup}
-            className="bg-pyBlue-400 w-40 p-3 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-500"
+            className="bg-pyBlue-400 w-40 p-3 rounded-lg  uppercase text-gray-200 font-bold hover:bg-pyBlue-500"
           >
             Submit
           </button>
         </div>
       </div>
       <div className="w-full md:w-1/3 lg:w-1/3  ">
-        <div className="w-9/12 lg:mx-auto md:mx-auto sm:mt-8 flex flex-col">
-          <h2 className="text-gray-700 font-bold">Already have an account?</h2>
-          <p className="text-gray-500 my-5">
+        <div className="w-9/12 lg:mx-auto md:mx-auto mt-10 lg:mt-1 flex flex-col">
+          <h2 className="text-blue-300  font-bold uppercase">Already have an account?</h2>
+          <p className="text-gray-400 font-sans my-5">
             If you already have a Pytools account please sign in.
           </p>
           <button
             onClick={() => {
               navigate("/login");
             }}
-            className="bg-gray-400 w-16 py-2 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-500"
+            className="bg-gray-400 w-16 py-2 rounded-lg  uppercase text-gray-200 font-bold hover:bg-pyBlue-500"
           >
             Login
           </button>

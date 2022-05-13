@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { Markup } from "interweave";
 import "./home.css"
+import ApiClient from './../../API/ApiClient';
 
 
 const Links = ({ styles, location, name, icon,CurrentUsers }) => {
   const [CurrentUser, SetCurrentUser] = useCookies("");
+  const [token, settoken] = useCookies("");
+  const [Notifications, setNotifications] = useState([]);
+  const [SvgColor, SetSvgColor] = useState("");
+  useEffect(() => {
+    setTimeout(() => {
+      if (token["token"]) {
+        ApiClient()
+          .get(`/api/Notifications/${CurrentUser["username"]}/`)
+          .then((response) => {
+            setNotifications(response.data);
+
+            console.log(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    }, 2000);
+  }, []);
 
   return (
     <>
       <li className="" >
         <Link
-          exact="true"
-          className="flex items-center p-2  font-bold font-mono  text-gray-800 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 m-9 "
+          exact="true" 
+          className="flex items-center p-2  font-bold font-mono uppercase  text-gray-600 rounded-lg dark:text-white hover:bg-gray-100 hover:text-black dark:hover:bg-gray-700 m-6 "
           to={location==="/profile"?`${location}/${CurrentUser['username']}`:location}
           // to={location}
         >
@@ -21,14 +41,19 @@ const Links = ({ styles, location, name, icon,CurrentUsers }) => {
             xmlns={icon.xmlns}
             viewBox={icon.viewBox}
             className={icon.className}
+            fill={SvgColor===""?"gray":SvgColor}
+            onMouseEnter={() => SetSvgColor("black")}
+            onMouseLeave={() => SetSvgColor("gray")}
 s          >
             <path
              
               d={icon.d}
             />
           </svg>
-
-          <span class="ml-3">{name}</span>
+          <div className="relative">
+          <span className="ml-3">{name} </span>
+          {name==="Notifications"?<span className="absolute badge text-sm font-mono -top-3.5 -right-3.5 text-white bg-green-600 rounded-full w-5 h-5 flex justify-center items-center">  {Notifications.length}</span>:''}
+          </div>
         </Link>
       </li>
     </>

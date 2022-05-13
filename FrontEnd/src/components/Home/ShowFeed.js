@@ -35,7 +35,7 @@ const ShowFeed = ({}) => {
     if(token["token"]) {
 
         ApiClient()
-          .get(`/api/posts/`)
+          .get(`/api/posts/${CurrentUser['username']}_/`)
           .then((response) => {
             console.log(response.data);
             // setcontent(response.data[14].content)
@@ -48,7 +48,7 @@ const ShowFeed = ({}) => {
       }
 
 
-    }, [])
+    }, [CurrentUser['username']])
    
       
   return (
@@ -57,12 +57,8 @@ const ShowFeed = ({}) => {
     {
       Posts.map((post) => {
 
-        
-        if(post.username===CurrentUser['username']){
-        return '';
-      }
-      else{
-         return <PostCard content={post.content} fullname={post.fullname} username={post.username} id={post.id}/>}
+       
+         return <PostCard content={post.content} fullname={post.fullname} username={post.username} id={post.id}/>
          
           
       })

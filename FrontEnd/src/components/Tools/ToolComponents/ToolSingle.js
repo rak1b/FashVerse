@@ -8,12 +8,14 @@ import { SideNav } from "../../Home/SIdeNav";
 import { LinkInfo_HomePage } from "../../NavBar/LInkInfo";
 import CalorieTracker from "../CalorieTracker/CalorieTracker";
 import NutritionDatabase from './../NutritionDatabase/NutritionDatabase';
+import DailySleepTracker from "../DailySleepTracker/DailySleepTracker";
 const appsList = {
   "Faceshape-detection": <FaceShapeFind />,
-  "Bmi-Calculator": <BmiCalculator />,
   "PortFolio-Maker": <PortfolioMaker />,
   "EyeGlass-Suggestion": <EyeGlassSuggestion />,
   "Calorie-Tracker":<CalorieTracker/>,
+  "Bmi-Calculator": <BmiCalculator />,
+  "Sleep-tracker":<DailySleepTracker/>,
   "Nutrition-Database":<NutritionDatabase/>
 };
 
@@ -23,9 +25,9 @@ const ToolSingle = () => {
   return (
     <div>
       <div className="w-full h-screen flex flex-row flex-wrap justify-center  ">
-        <div className="bg-white shadow-lg border-t-4 border-indigo-500 absolute bottom-0 w-full md:w-0 md:hidden flex flex-row flex-wrap">
+        <div className="bg-white shadow-lg border-t-4 border-indigo-500 absolute bottom-0 w-full md:w-0 hidden md:hidden flex flex-row flex-wrap">
           <div className="w-full text-right">
-            <button className="p-2 fa fa-bars text-4xl text-gray-600"></button>
+            <button className="p-2 fa fa-bars text-4xl text-gray-600 hidden"></button>
           </div>
         </div>
 
@@ -35,7 +37,7 @@ const ToolSingle = () => {
 
         {/* <NavLinks LinkInfo={LinkInfo_Logged_in}/> */}
 
-        <div className="w-3/5 p-5 md:px-12 lg:24 h-full overflow-x-scroll antialiased shadow-sm">
+        <div className="lg:w-3/5 sm:w-full sm:mx-10 p-5 md:px-12 lg:24 h-full overflow-x-scroll antialiased shadow-sm">
           {Object.keys(appsList).map((current) => {
             return current === name ? appsList[current] : "";
           })}

@@ -72,9 +72,12 @@ const FaceShapeFind = () => {
     return (
         <>
         <Breadcrumb/>
-
-            <section className=" p-4 h-screen bg-gray-100 mx-auto">
-                <h2 className=' mx-auto text-4xl w-1/2 mb-2 text-center bg-green-500 p-5 rounded-b-2xl text-white ' style={{ fontFamily: `"Cormorant Garamond"` }}>Face Shape App</h2>
+        <h4 className="text-center p-5  uppercase space-x-5 shadow-lg text-xl font-semibold bg-white text-blue-400 ">
+          Find Face Shape
+        </h4>
+            <section className=" p-4  bg-gray-100 mx-auto">
+                {/* <h2 className=' mx-auto text-4xl w-1/2 mb-2 text-center bg-green-500 p-5 rounded-b-2xl text-white ' style={{ fontFamily: `"Cormorant Garamond"` }}>Face Shape App</h2> */}
+               
 
                 <div style={{ "backgroundcolor": "rgba(0, 0, 0, 0)" }}>
                     <div class="container mx-auto" style={{ "cursor": "auto" }}>
@@ -134,7 +137,7 @@ const FaceShapeFind = () => {
 
 
 
-                                <div class="flex absolute bottom-0 right-0">
+                                <div class="flex absolute lg:bottom-0 -bottom-24 right-0">
                                     {showUploadPlace === 0 ? <button onClick={() => {
                                         console.log('CLicked find button');
                                         //  SetshowUploadPlace(1)

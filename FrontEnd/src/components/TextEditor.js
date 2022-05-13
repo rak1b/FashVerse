@@ -152,9 +152,9 @@ const CreatePost = () => {
 
       <button
         onClick={CreatePost}
-        className="bg-pyBlue-500 w-auto mt-4 p-5 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-400 "
+        className="bg-pyBlue-500 w-auto uppercase mt-4 p-5 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-400 "
       >
-        Share{" "}
+        Share
       </button>
 
       <ToastContainer

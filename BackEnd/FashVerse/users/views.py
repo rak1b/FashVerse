@@ -1,15 +1,15 @@
 
 
 import re
-from .serializers import PostImageSerializer, ProfileSerializer,PostSerializer,UserSerializer,PostReactSerializer
+from .serializers import PostImageSerializer, ProfileSerializer,PostSerializer,UserSerializer,PostReactSerializer,NotificationSerializer,SleepTimeSerializer
 from rest_framework import viewsets
-from .models import Post, PostImage, PostReact, Profile
+from .models import Notification, Post, PostImage, PostReact, Profile,SleepTime
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
-
+from django.db.models import Q
 
 class UserViewSet(viewsets.ViewSet):
     """
@@ -125,14 +125,35 @@ class PostViewSet(viewsets.ViewSet):
     def list(self, request):
         queryset = Post.objects.order_by('-created')
         serializer = PostSerializer(queryset, many=True)
+        
     
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        user = User.objects.get(username=pk)
-        queryset = Post.objects.filter(user=user).order_by('-created')
         
+        if(pk[-1]=='_'):
+            
+            user = User.objects.get(username=str(pk)[:-1])
+            queryset = Post.objects.filter(~Q(user = user)).order_by('-created')
+            react = PostReact.objects.filter(~Q(post__user = user))
+        else:
+            user = User.objects.get(username=pk)
+            queryset = Post.objects.filter(user=user).order_by('-created')
+            react = PostReact.objects.filter(post__user = user)
+            
         serializer = PostSerializer(queryset, many=True)
+        # res = {
+        #     'data':serializer.data,
+        #     'react':{
+        #         'post':react.post,
+        #         'love':react.love,
+        #         'loved_by':react.loved_by
+        #     }
+            
+        # }
+        # print(res)
+        # return Response(res)
+        # print(react.love) have to use for loop
         return Response(serializer.data)
     
     def create(self, request):
@@ -145,11 +166,6 @@ class PostViewSet(viewsets.ViewSet):
             return Response({'data':'Created'},status=status.HTTP_201_CREATED)
         return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
     
-    # def partial_update(self, request, pk=None):
-    #     post = Post.objects.get(id=pk)
-    #     data  = request.data['user']
-        
-    #     return Response('')
         
     
 class PostImageViewset(viewsets.ViewSet):
@@ -177,14 +193,31 @@ class PostImageViewset(viewsets.ViewSet):
          print({'url':image_path,"data":"created"})
          return Response({'url':image_path,"status":'created'},status=status.HTTP_201_CREATED)
       return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
-        # Response { type: "cors", url: "https://noteyard-backend.herokuapp.com/api/blogs/uploadImg", redirected: false, status: 200, ok: true, statusText: "OK", headers: Headers, body: ReadableStream, bodyUsed: false }
-
-# {
-#     "love": false,
-#     "post": 47,
-#     "loved_by": ['rak1b']
-# }
         
+class NotificationViewSet(viewsets.ViewSet):
+    """
+    A simple ViewSet for Notification.
+    """
+    def list(self, request):
+        queryset = Notification.objects.all()
+        serializer = NotificationSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def retrieve(self,request,pk=None):
+       
+        try:
+            user = User.objects.get(username=pk)
+        except:
+            user = User.objects.get(id=pk)
+            
+        queryset = Notification.objects.filter(user=user)
+        # queryset = Post.objects.filter(user=user)s.order_by('-created')
+        
+        serializer = NotificationSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    
+    
 class PostReactViewSet(viewsets.ViewSet):
     """
     A simple ViewSet for viewing and editing accounts.
@@ -198,22 +231,87 @@ class PostReactViewSet(viewsets.ViewSet):
         return Response(serializer.data)
     
     def create(self, request):
-        # data=request.data
-        print('creating................')
-        print(request.data)
-        print(request)
-        
+        post = Post.objects.get(id=request.data['post'])
+        loved_by = User.objects.get(username = request.data['loved_by'])
         newdata = {
-            'post':Post.objects.get(id=request.data['post']),
+            'post':post.id,
             'love':request.data['love'],
-            'loved_by':User.objects.get(username = request.data['username'])
+            'loved_by':loved_by.id,
         }
-        # serializer = PostSerializer(data = newdata)
-        serializer = PostSerializer(data = request.data)
+        
+        serializer = PostReactSerializer(data = newdata)
+        try:
+            exists_or_not = PostReact.objects.get(post=post.id,loved_by=loved_by)
+            return Response({'data':'already exists'})
+            
+        except:
+            if serializer.is_valid():
+                serializer.save()
+                return Response({'data':'Created'},status=status.HTTP_201_CREATED)
+            return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+        
+        
+
+
+class SleepTimeViewSet(viewsets.ViewSet):
+    """
+    A simple ViewSet for viewing and editing accounts.
+    """
+    # queryset = PostReact.objects.all()
+    # serializer_class = PostReactSerializer
+    
+    def list(self, request):
+        queryset = SleepTime.objects.all()
+        serializer = SleepTimeSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def create(self, request):
+        user = User.objects.get(username = request.data['username'])
+        print(user.id)
+        print("-----------------------------")
+        info = SleepTime.objects.filter(user=user.id)
+        
+        import datetime as dt
+        sleep_time = request.data['sleep_time']+":00"
+        wake_time = request.data['wake_time']+":00"
+        start_dt = dt.datetime.strptime(str(sleep_time), '%H:%M:%S')
+        end_dt = dt.datetime.strptime(str(wake_time), '%H:%M:%S')
+        diff = (end_dt - start_dt) 
+        print(diff)
+        try:
+            hour,min,sec = str(diff).split(" ")[2].split(":")
+        except:
+            hour,min,sec = str(diff).split(":")
+        print(hour)
+        print(min)
+        
+       
+        newdata = {
+            'user':user.id,
+            'date':request.data['date'],
+            'sleep_time':sleep_time,
+            'wake_time':wake_time,
+            'total_sleep_hour':hour,
+            'total_sleep_min':min,
+            
+        }
+        
+        serializer = SleepTimeSerializer(data = newdata)
         
         if serializer.is_valid():
-            # serializer.save()
-            print('valid')
-            print(request.data)
+            serializer.save()
             return Response({'data':'Created'},status=status.HTTP_201_CREATED)
         return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
+    
+    def retrieve(self,request,pk=None):
+           
+        try:
+            user = User.objects.get(username=pk)
+        except:
+            user = User.objects.get(id=pk)
+            
+        queryset = SleepTime.objects.filter(user=user).order_by('-date')
+        # queryset = Post.objects.filter(user=user)s.order_by('-created')
+        
+        serializer = SleepTimeSerializer(queryset, many=True)
+        return Response(serializer.data)

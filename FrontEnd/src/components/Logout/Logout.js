@@ -25,7 +25,9 @@ const Logout = () => {
 
   }, []);
 
-  return <div>Logging out
+  return <div>
+    <div className="flex justify-center items-center h-screen uppercase text-red-400 "><h2> Logging Out..</h2> </div>
+    
     <ToastContainer
       position="top-center"
       autoClose={2000}

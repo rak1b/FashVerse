@@ -10,7 +10,7 @@ import { useCookies } from "react-cookie";
 import { ShowDp } from "../../ReduxFiles/Actions/ProfileActions";
 import { useLocation, useNavigate } from "react-router-dom";
 import ProfileModal from "../Profile/Profile";
-import { LinkInfo_Logged_in, LinkInfo_Logged_out } from "./LInkInfo";
+import { LinkInfo_HomePage, LinkInfo_Logged_in, LinkInfo_Logged_out } from "./LInkInfo";
 
 const Navbar = () => {
   const [ShowNav, setShowNav] = useState(1);
@@ -73,7 +73,7 @@ const Navbar = () => {
         <div className="flex transition-all justify-between lg:relative font-mono  items-center bg-pyBlue-500 text-gray-200 h-20 md:w-3/4 lg:w-3/4 w-3/4   mx-auto">
           <button
             onClick={ShowNavLink}
-            className={`lg:absolute lg:left-44 cursor-pointer rounded-full p-2 hover:bg-pyBlue-400 ${Bounce} `}
+            className={`lg:absolute lg:left-44 lg:hidden cursor-pointer rounded-full p-2 hover:bg-pyBlue-400 ${Bounce} `}
           >
             {/* <button onClick={ShowNavLink} className="lg:hidden md:hidden cursor-pointer rounded-full p-2 hover:bg-pyBlue-400 "> */}
             <Menu color="#FFDD56" size={35} />
@@ -132,7 +132,7 @@ const Navbar = () => {
         </div>
         {token["token"] ? (
           ShowNav ? (
-            <NavLinks LinkInfo={LinkInfo_Logged_in} />
+            <NavLinks LinkInfo={LinkInfo_HomePage} />
           ) : (
             ""
           )

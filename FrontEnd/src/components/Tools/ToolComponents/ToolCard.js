@@ -20,7 +20,7 @@ const ToolCard = ({ props }) => {
                 <span className="card-description subtle">
                   {props.description}
                 </span>
-                <div className="card-read">Read</div>
+                <div className="card-read">More</div>
               </div>
               <img src={image_url}alt="images" className="card-media h-1/3 w-full" />
               {/* <span className="card-tag  subtle">Order Now</span> */}

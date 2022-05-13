@@ -48,12 +48,13 @@ const Login = () => {
       });
   };
   return (
-    <div className="h-auto w-3/4 mx-auto mt-5 flex flex-wrap">
+    <div className="flex items-center  justify-center h-3/4 lg:mt-20 sm:mt-2">
+    <div className=" w-3/4 p-14 mx-auto mt-5 flex flex-wrap rounded-lg bg-white shadow-lg h-auto">
       <div className="form_container flex flex-col lg:w-2/3 md:w-2/3 w-full ">
-        <h2 className="text-3xl text-pyBlue-500 font-bold">Login</h2>
+        <h2 className="text-xl text-blue-400  uppercase space-x-2 font-semibold ">Login</h2>
         <div className="flex flex-col mt-7">
           <div className="flex flex-col my-4">
-            <label className="font-bold text-gray-500" htmlFor="username">
+            <label className=" text-gray-400 text-sm  uppercase font-bold " htmlFor="username">
               Enter Username :
             </label>
             <input
@@ -63,13 +64,15 @@ const Login = () => {
                 setusername(e.target.value);
               }}
               value={username}
-              className={styles}
+              // className={styles}
+              className="w-3/4  text-gray-900 border border-blue-300 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+         
               placeholder="Username"
             />
           </div>
 
           <div className="flex flex-col my-4 ">
-            <label className="font-bold text-gray-500" htmlFor="Password">
+            <label className="text-gray-400 text-sm  uppercase font-bold " htmlFor="Password">
               Enter Password :
             </label>
             <input
@@ -78,43 +81,34 @@ const Login = () => {
                 setpassword(e.target.value);
               }}
               value={password}
-              className={styles}
+              className="w-3/4  text-gray-900 border border-blue-300 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+
               type="password"
               placeholder="Password"
             />
           </div>
 
-          <button onClick={Dologin} className="bg-pyBlue-400 w-40 p-3 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-500">
+          <button onClick={Dologin} className="uppercase bg-pyBlue-400 w-40 p-3 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-500">
             Submit
           </button>
         </div>
       </div>
       <div className="w-full md:w-1/3 lg:w-1/3  ">
-        <div className="w-9/12 lg:mx-auto md:mx-auto sm:mt-8 flex flex-col">
-          <h2 className="text-gray-400 text-2xl font-bold">Register</h2>
-          <p className="text-gray-500 my-4">Don't have a pyTools account yet?.</p>
+        <div className="w-9/12 lg:mx-auto md:mx-auto sm:mt-8 mt-10 flex flex-col">
+          <h2 className="text-blue-300  font-bold uppercase">Register</h2>
+          <p className="text-gray-400 my-4 font-sans">Don't have a pyTools account yet?.</p>
           <button
             onClick={() => {
               navigate("/signup");
 
             }}
-            className="bg-gray-400 w-auto py-2 rounded-lg text-gray-200 font-bold hover:bg-pyBlue-500"
+            className="bg-gray-400 w-auto py-2 rounded-lg uppercase text-gray-200 font-bold hover:bg-pyBlue-500"
           >
             Create an account
           </button>
         </div>
       </div>
-      {/* <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      /> */}
+    
       <ToastContainer
         position="top-center"
         autoClose={2000}
@@ -126,6 +120,7 @@ const Login = () => {
         draggable
         pauseOnHover
       />
+    </div>
     </div>
   );
 };

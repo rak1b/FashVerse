@@ -2,8 +2,9 @@
 from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import User
 from rest_framework.authtoken.views import Token
+from rest_framework import serializers
 
-from .models import Profile,Post,PostImage,PostReact
+from .models import Profile,Post,PostImage,PostReact,Notification,SleepTime
 # class HomeSerializer(ModelSerializer):
 #     class Meta:
 #         model = Articles
@@ -36,11 +37,24 @@ class UserSerializer(ModelSerializer):
       
 
 class PostSerializer(ModelSerializer):
+    # react = serializers.BooleanField()
+    
     class Meta:
         model = Post
         # fields = ('user','content')
         fields = ('__all__')
-  
+        # extra_fields = ('react')
+        # fields = fields + extra_fields
+        # 
+class SleepTimeSerializer(ModelSerializer):
+ 
+    
+    class Meta:
+        model = SleepTime
+        # fields = ('user','content')
+        fields = ('__all__')
+        # extra_fields = ('react')
+        # fields = fields + extra_fields
         
         
 class PostImageSerializer(ModelSerializer):
@@ -62,9 +76,14 @@ class ProfileSerializer(ModelSerializer):
         model = Profile
         fields = ('__all__')
         
+class NotificationSerializer(ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ('__all__')
+        
         
 class PostReactSerializer(ModelSerializer):
     class Meta:
         model = PostReact
-        fields = ('__all__')
+        fields = ('post','love','loved_by')
         
