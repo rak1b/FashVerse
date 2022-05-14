@@ -109,16 +109,16 @@ const CardContent = () => {
         text-center p-2 text-gray-600 leading-snug text-sm"
             >
               <li>
-                <span class="font-semibold text-gray-800 block">136</span>
+                <span class="font-semibold text-gray-800 block">{posts.length}</span>
                 posts
               </li>
 
               <li>
-                <span class="font-semibold text-gray-800 block">40.5k</span>
+                <span class="font-semibold text-gray-800 block">0</span>
                 followers
               </li>
               <li>
-                <span class="font-semibold text-gray-800 block">302</span>
+                <span class="font-semibold text-gray-800 block">0</span>
                 following
               </li>
             </ul>

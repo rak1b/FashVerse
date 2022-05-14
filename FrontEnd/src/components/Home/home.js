@@ -49,7 +49,7 @@ export const HomePage = () => {
 <div className="w-full h-screen flex flex-row flex-wrap justify-center  ">
   
   
-  <div className="bg-white shadow-lg border-t-4 border-indigo-500 absolute bottom-0 w-full  flex flex-row flex-wrap">
+  <div className="bg-white shadow-lg hidden border-indigo-500 absolute bottom-0 w-full  flex flex-row flex-wrap">
     <div className="w-full text-right"><button className="p-2 fa fa-bars text-4xl text-gray-600"></button></div>
   </div>
   

@@ -79,7 +79,7 @@ const ProfileModal = ({ hideProfileModal, details }) => {
   return (
     <>
       <div className="w-full h-screen flex flex-row flex-wrap justify-center  ">
-        <div className="bg-white shadow-lg border-t-4 border-indigo-500 absolute bottom-0 w-full md:w-0  flex-row flex-wrap">
+        <div className="bg-white shadow-lg border-t-4 hidden border-indigo-500 absolute bottom-0 w-full md:w-0  flex-row flex-wrap">
           <div className="w-full text-right">
             <button className="p-2 fa fa-bars text-4xl text-gray-600"></button>
           </div>
@@ -91,13 +91,13 @@ const ProfileModal = ({ hideProfileModal, details }) => {
 
         {/* <NavLinks LinkInfo={LinkInfo_Logged_in}/> */}
 
-        <div className="w-3/5   h-full overflow-x-scroll antialiased shadow-sm">
+        <div className="lg:w-3/5 sm:w-full   h-full overflow-x-scroll antialiased shadow-sm">
           <ProfileCard
             ProfileData={ProfileData}
             posts={Posts}
             Loaded={Loaded}
           />
-          <div className="mx-10">
+          <div className="lg:mx-10 sm:mx-2">
             <ShowOwnPosts posts={Posts} Loaded={Loaded} />
           </div>
         </div>

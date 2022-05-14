@@ -17,6 +17,8 @@ import ProfileModal from './components/Profile/Profile';
 import Notification from './components/Notification/Notification';
 import { About } from './components/About/About';
 import { ContactUs } from './components/ContactUs/ContactUs';
+import { Search } from 'react-feather';
+import QuerySearch from './components/Search/QuerySearch';
 function App() {
   const [token, settoken] = useCookies();
 
@@ -32,6 +34,9 @@ function App() {
         <Route exact path="/contact" element={<ContactUs/>} />
         <Route exact path="/tools/" element={<Tools/>} />
         <Route exact path="/notifications" element={<Notification/>} />
+        <Route exact path="/search" element={<QuerySearch/>} />
+        {/* <Route exact path="/search?query=:query" element={<QuerySearch/>} /> */}
+
         <Route exact path="/tools/:name" element={<ToolSingle/>} />
         <Route exact path="/news" element={<News/>} />
         <Route exact path="/profile/:username" element={<ProfileModal/>} />

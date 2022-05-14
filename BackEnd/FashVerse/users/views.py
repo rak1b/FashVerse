@@ -1,6 +1,9 @@
 
-
+import json
+import traceback
 import re
+from urllib import response
+from django.http import JsonResponse
 from .serializers import PostImageSerializer, ProfileSerializer,PostSerializer,UserSerializer,PostReactSerializer,NotificationSerializer,SleepTimeSerializer
 from rest_framework import viewsets
 from .models import Notification, Post, PostImage, PostReact, Profile,SleepTime
@@ -10,7 +13,8 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
-
+from blog.models import Tools
+from blog.serializers import ToolsSerializer
 class UserViewSet(viewsets.ViewSet):
     """
     A simple ViewSet for listing or retrieving users.
@@ -251,6 +255,90 @@ class PostReactViewSet(viewsets.ViewSet):
             return Response({'error':serializer.errors},status=status.HTTP_400_BAD_REQUEST)
         
         
+class SearchTimeViewSet(viewsets.ViewSet):
+    """
+    A simple ViewSet for search
+    """
+    def list(self, request):
+        pk = request.GET['q']
+        # queryset = PostReact.objects.all()
+        queryset = post = Post.objects.filter(
+                Q(fullname__icontains=pk) | Q(username__icontains=pk) | Q(content__icontains=pk)
+            )
+        tool = Tools.objects.filter(
+            Q(name__icontains=pk) | Q(name__icontains=pk) | Q(description__icontains=pk)
+        )
+        toolserializer = ToolsSerializer(tool,many=True)
+        postserialzer = PostSerializer(queryset, many=True)
+        return Response({'posts': postserialzer.data,'tools':toolserializer.data})
+    
+    # queryset = PostReact.objects.all()
+    # serializer_class = PostReactSerializer
+    
+
+       
+    
+    # def create(self, request):
+    #     postData = []
+        
+    #     pk = request.data['q']
+    #     print(pk)
+    #     post = "No posts found"
+    #     tool = "No tools found"
+    #     try:
+    #         post = Post.objects.filter(
+    #             Q(fullname__icontains=pk) | Q(username__icontains=pk) | Q(content__icontains=pk)
+    #         )
+    #         # post = serializers.serialize("json", post)
+    #         print("--------------------------")
+    #         print(post)
+    #         print("--------------------------")
+    #         for item in post:
+    #             postData.append({
+    #                 'id': item.id, 
+    #                 'user': item.user.id, 
+    #                 'username': item.username,
+    #                 'fullname': item.fullname,
+    #                 'content':item.content
+    #             })
+                
+    #         print(postData)
+                
+                
+    #     except:
+    #         traceback.print_exc()
+            
+            
+    #     # try:
+        #     tool = Tools.objects.filter(
+        #     Q(name__icontains=pk) | Q(user__icontains=pk) | Q(description__icontains=pk)
+        # )
+    #         # tool = serializers.serialize("json", tool)
+            
+            
+    #     # except:
+    #     #     traceback.print_exc()
+        
+            
+    #     # return JsonResponse({
+    #     #     "data":{
+    #     #     "posts":post,
+    #     #     "tools":tool
+    #     #     }
+    #     # }, safe=False)
+    #     res = {
+    #         "post"  : json.dumps(postData)
+    #     }
+    #     return Response(res)
+    #     # return JsonResponse()
+    #     # except:
+    #     #     return Response({
+    #     #         'data':{
+    #     #         "posts":"No posts found",
+    #     #         "tools":"No Tools found"
+    #     #        }
+    #     #     })
+
 
 
 class SleepTimeViewSet(viewsets.ViewSet):

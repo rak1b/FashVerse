@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { Markup } from "interweave";
 import "./home.css"
 import ApiClient from './../../API/ApiClient';
+import { Bell, Home, Info, LogOut, Phone, Tool, User, Users } from "react-feather";
 
 
 const Links = ({ styles, location, name, icon,CurrentUsers }) => {
@@ -19,7 +20,6 @@ const Links = ({ styles, location, name, icon,CurrentUsers }) => {
           .then((response) => {
             setNotifications(response.data);
 
-            console.log(response.data);
           })
           .catch(function (error) {
             console.log(error);
@@ -37,6 +37,8 @@ const Links = ({ styles, location, name, icon,CurrentUsers }) => {
           to={location==="/profile"?`${location}/${CurrentUser['username']}`:location}
           // to={location}
         >
+          {}
+          {location==='/logout'?<LogOut/>:location==='/profile'?<User/>:location==='/tools'?<Tool/>:location==='/'?<Home/>:location==='/news'?<Info/>:location==='/notifications'?<Bell/>:location==='/contact'?<Phone/>:location==='/about'?<Users/>:
           <svg
             xmlns={icon.xmlns}
             viewBox={icon.viewBox}
@@ -50,6 +52,7 @@ s          >
               d={icon.d}
             />
           </svg>
+          }
           <div className="relative">
           <span className="ml-3">{name} </span>
           {name==="Notifications"?<span className="absolute badge text-sm font-mono -top-3.5 -right-3.5 text-white bg-green-600 rounded-full w-5 h-5 flex justify-center items-center">  {Notifications.length}</span>:''}

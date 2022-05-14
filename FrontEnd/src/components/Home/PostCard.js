@@ -3,7 +3,7 @@ import { Markup } from "interweave";
 import { useCookies } from "react-cookie";
 import ApiClient from "./../../API/ApiClient";
 
-const PostCard = ({ content, username, fullname, id }) => {
+const PostCard = ({ content, username, fullname, id,search }) => {
   const [CurrentUser, SetCurrentUser] = useCookies("");
 
   const [Display, setDisplay] = useState(0);
@@ -40,12 +40,13 @@ const PostCard = ({ content, username, fullname, id }) => {
         {/* <img className="border rounded-t-lg shadow-lg " src="https://images.unsplash.com/photo-1572817519612-d8fadd929b00?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"/> */}
         <div
           className={
-            !Display
+            !Display && search
+              ? ClassForContent + " h-40 overflow-hidden":!Display && !search
               ? ClassForContent + " h-96 overflow-hidden"
               : ClassForContent
           }
         >
-          <h2 className="text-gray-500 my-3">
+          <h2 className="text-gray-500 my-3 ">
             
             Posted by : {fullname} (
             <span className="font-bold italic text-blue-500">{username}</span>)

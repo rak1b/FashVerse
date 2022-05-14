@@ -58,7 +58,8 @@ const Navbar = () => {
   const [Bounce, setBounce] = useState("");
   useEffect(() => {
     console.log("Location changed");
-    if (window.location.pathname === "/tools" || window.location.pathname === "/"  ) {
+    if ( window.location.pathname === "/"  ) {
+      // if (window.location.pathname === "/tools" || window.location.pathname === "/"  ) {
       setShowNav(0);
     }
     setBounce("animate-bounce");

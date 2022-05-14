@@ -58,7 +58,7 @@ const ShowFeed = ({}) => {
       Posts.map((post) => {
 
        
-         return <PostCard content={post.content} fullname={post.fullname} username={post.username} id={post.id}/>
+         return <PostCard  search={0} content={post.content} fullname={post.fullname} username={post.username} id={post.id}/>
          
           
       })
